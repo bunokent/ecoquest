@@ -23,7 +23,7 @@ const ZoneHeader = ({ currentLives }: { currentLives: number }) => {
           <img src={animals[character]} width={60} alt={character} />
           <p className="font-bold capitalize">{name}</p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 items-center">
           {(() => {
             const results = [];
             for (let i = 0; i < 3; i++) {
