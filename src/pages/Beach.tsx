@@ -1,23 +1,25 @@
 import { useState } from "react";
-import Storyline from "../assets/river/01.svg";
-import Objective from "../assets/river/02.svg";
-import FF1 from "../assets/river/04.svg";
-import Q1 from "../assets/river/03.svg";
-import Q2 from "../assets/river/05.svg";
-import Q3 from "../assets/river/07.svg";
-import FF2 from "../assets/river/06.svg";
-import FF3 from "../assets/river/08.svg";
+import Storyline from "../assets/beach/01.svg";
+import Objective from "../assets/beach/02.svg";
+import FF1 from "../assets/beach/04.svg";
+import FF2 from "../assets/beach/05.svg";
+import Q1 from "../assets/beach/03.svg";
+import Q2 from "../assets/beach/06.svg";
+import Q3 from "../assets/beach/08.svg";
+// import FF2 from "../assets/river/06.svg";
+import FF3 from "../assets/beach/07.svg";
+import FF4 from "../assets/beach/09.svg";
 import NextButton from "../assets/river/nextbtn.svg";
 import SubmitButton from "../assets/river/submitbtn.svg";
-import CheckAns from "../assets/river/check.svg";
-import WrongAns from "../assets/river/wrong.svg";
-import CheckChar from "../assets/river/check-char.svg";
-import WrongChar from "../assets/river/wrong-char.svg";
-import C1 from "../assets/river/c1.svg";
-import C2 from "../assets/river/c2.svg";
-import C3 from "../assets/river/c3.svg";
-import C6 from "../assets/river/c6.svg";
-import C8 from "../assets/river/c8.svg";
+import CheckAns from "../assets/beach/check.svg";
+import WrongAns from "../assets/beach/wrong.svg";
+import CheckChar from "../assets/beach/c2.svg";
+import WrongChar from "../assets/beach/wrong-char.svg";
+import C1 from "../assets/beach/c1.svg";
+import C2 from "../assets/beach/c2.svg";
+import C3 from "../assets/beach/c4-5.svg";
+// import C6 from "../assets/river/c6.svg";
+import C7 from "../assets/beach/c7.svg";
 import ZoneHeader from "../components/ZoneHeader";
 
 import { useNavigate } from "react-router-dom";
@@ -57,47 +59,48 @@ const pages: Page[] = [
     char: null,
     type: "question",
     question:
-      "People in the community throw plastic bags, bottles, and food wrappers into the river. After some time, the water becomes dirty and smelly, and fish can no longer live safely in the river. Which action will BEST help reduce water pollution in the river?",
+      "Do you see small fish swimming near the shore? Some students try to catch the fish to play with them, which scares the fish and disrupts their habitat. Which shows a safe way for students to enjoy this habitat?",
     options: [
-      "Properly disposing of waste and recycling plastics.",
-      "Throwing more waste into the river.",
-      "Washing garbage into the river during rain."
+      "Observe the fish without touching them.",
+      "Splash water to scare the fish .",
+      "Catch the fish."
     ],
     correct: 0
   },
   { bg: FF1, char: C3, type: "funfact" },
+  { bg: FF2, char: C3, type: "funfact" },
   {
     bg: Q2,
     char: null,
     type: "question",
     question:
-      "The river smells bad and people are getting sick.Why is clean water important?",
+      "Do you notice plastic bottles and wrappers floating near the shore? What should students do to help protect marine life?",
     options: [
-      "For throwing waste.",
-      "For decoration.",
-      "For drinking, cleaning, and living things."
+      "Leave the plastic where it is.",
+      "Throw more trash into the water .",
+      "Collect the plastic and place it in recycling bins."
     ],
     correct: 2
   },
-  { bg: FF2, char: C6, type: "funfact" },
+  { bg: FF3, char: C7, type: "funfact" },
   {
     bg: Q3,
     char: null,
     type: "question",
     question:
-      " A sea turtle is found trapped in plastic waste floating in the ocean. The plastic makes it hard for the turtle to swim and breathe. Which action BEST helps protect marine animals?",
+      " After a beach trip, students see plastic cups, straw, and snack wrappers left on the seabed. What should students do before leaving the beach?",
     options: [
-      "Using reusable bags and bottles.",
-      "Throwing plastic into the sea.",
-      "Burning plastic near the shore."
+      "Bury the trash in the sand..",
+      "Collect all trash and bring it to proper trash cans..",
+      "Push it into the water."
     ],
-    correct: 0
+    correct: 1
   },
-  { bg: FF3, char: C8, type: "funfact" }
+  { bg: FF4, char: C7, type: "funfact" }
 ];
 
 // ---------- COMPONENT ----------
-const River = () => {
+const Beach = () => {
   const [currentLives, setCurrentLives] = useState<number>(2);
   const [pageIndex, setPageIndex] = useState<number>(0);
   const [selected, setSelected] = useState<number | null>(null);
@@ -112,7 +115,7 @@ const River = () => {
       setPageIndex(p => p + 1);
     } else {
     // Redirect to /river/mini-games
-    navigate("/river/mini-games");
+    navigate("/beach/mini-games");
   }
   };
 
@@ -140,7 +143,7 @@ const River = () => {
       </div>
 
       {/* overlay */}
-      {currentLives <= 0 && <NoHeart zone="river" />}
+      {currentLives <= 0 && <NoHeart zone="beach" />}
 
       {/* Background */}
       <img
@@ -178,7 +181,7 @@ const River = () => {
 
       {/* QUESTION MODE */}
       {page.type === "question" && !answerResult && (
-        <div className="absolute bottom-[10%] left-1/2 -translate-x-1/2 z-20 w-[95%] space-y-4 bg-white/30 backdrop-blur-md py-6 rounded-xl">
+        <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-20 w-[95%] space-y-4 bg-white/30 backdrop-blur-md py-6 rounded-xl">
           <div className="text-black text-lg text-center font-bold px-4">
             {page.question}
           </div>
@@ -239,4 +242,4 @@ const River = () => {
   );
 };
 
-export default River;
+export default Beach;

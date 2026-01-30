@@ -12,7 +12,7 @@ import { useState } from "react";
 
 const Map = () => {
   const [play, setPlay] = useState<boolean>(false);
-  const progress = 3;
+  const progress = 5;
 
   const maps = {
     1: Map1,
