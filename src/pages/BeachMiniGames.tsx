@@ -50,24 +50,27 @@ const pages: Page[] = [
     bg: MiniGBG,
     char: null,
     type: "question",
-    question: "I am a group of plants with long roots that grow near the beach. I give fish a safe place to hide and grow.",
-    answer: "mangroves"
+    question:
+      "I am a group of plants with long roots that grow near the beach. I give fish a safe place to hide and grow.",
+    answer: "mangroves",
   },
 
   {
     bg: MiniGBG,
     char: null,
     type: "question",
-    question: "I look pretty on the sand, but I am not just decoration. Crabs and other animals use me as home.",
-    answer: "shells"
+    question:
+      "I look pretty on the sand, but I am not just decoration. Crabs and other animals use me as home.",
+    answer: "shells",
   },
 
   {
     bg: MiniGBG,
     char: null,
     type: "question",
-    question: "I start on land as bottles, wrappers, or straws. When left behind, I float into the sea and harm marine animals.",
-    answer: "trash"
+    question:
+      "I start on land as bottles, wrappers, or straws. When left behind, I float into the sea and harm marine animals.",
+    answer: "trash",
   },
 
   { bg: Congrats01, char: C1, type: "story" },
@@ -83,7 +86,7 @@ const BeachMiniGames = () => {
 
   const page = pages[pageIndex];
 
-  const { isSliding, triggerSlide } = useSlideTransition();
+  const { isSliding } = useSlideTransition();
 
   // ---------- HANDLERS ----------
   const [showReward, setShowReward] = useState(false);
@@ -105,7 +108,7 @@ const BeachMiniGames = () => {
         setAnswerResult("correct");
       } else {
         setAnswerResult("wrong");
-        setCurrentLives(l => l - 1);
+        setCurrentLives((l) => l - 1);
       }
     }
   };
@@ -113,7 +116,7 @@ const BeachMiniGames = () => {
   const handleResultNext = () => {
     setAnswerResult(null);
     setUserAnswer("");
-    setPageIndex(p => p + 1);
+    setPageIndex((p) => p + 1);
   };
 
   const isLastPage = pageIndex === pages.length - 1;
@@ -142,11 +145,7 @@ const BeachMiniGames = () => {
       {currentLives <= 0 && <NoHeart zone="beach" />}
 
       {/* Background */}
-      <img
-        src={page.bg}
-        className="w-full h-full object-cover"
-        alt="scene"
-      />
+      <img src={page.bg} className="w-full h-full object-cover" alt="scene" />
 
       {/* Character */}
       {page.type === "story" && (
@@ -159,32 +158,34 @@ const BeachMiniGames = () => {
 
       {/* STORY MODE */}
       {page.type === "story" && (
-        <div className={`absolute right-10 z-20 flex space-x-4 ${
-          showReward ? "bottom-0" : "bottom-10"
-        }`}>
-          
+        <div
+          className={`absolute right-10 z-20 flex space-x-4 ${
+            showReward ? "bottom-0" : "bottom-10"
+          }`}
+        >
           {!showReward && (
             <button onClick={handleNext}>
               <img src={NextButton} alt="next" />
             </button>
           )}
           {showReward && (
-              <BadgeReward
-                background={Background}
-                badge={BeachBadge}
-                nextZone="null"
-                zoneName="Beach"
-                isSliding={isSliding}
-              />
+            <BadgeReward
+              background={Background}
+              badge={BeachBadge}
+              nextZone="null"
+              zoneName="Beach"
+              isSliding={isSliding}
+            />
           )}
         </div>
       )}
 
       {/* QUESTION MODE */}
       {page.type === "question" && !answerResult && (
-        <div className="absolute top-[50%] left-1/2 -translate-x-1/2 z-20 
-        w-[95%] space-y-4 bg-white/30 backdrop-blur-md py-6 rounded-xl">
-
+        <div
+          className="absolute top-[50%] left-1/2 -translate-x-1/2 z-20 
+        w-[95%] space-y-4 bg-white/30 backdrop-blur-md py-6 rounded-xl"
+        >
           <div className="text-black text-lg text-center font-bold px-4">
             {page.question}
           </div>
@@ -192,7 +193,7 @@ const BeachMiniGames = () => {
           <input
             type="text"
             value={userAnswer}
-            onChange={e => setUserAnswer(e.target.value)}
+            onChange={(e) => setUserAnswer(e.target.value)}
             placeholder="Type your answer..."
             className="w-[90%] mx-auto block p-3 rounded-lg 
             text-center text-md font-semibold border border-gray-300"

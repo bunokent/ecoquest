@@ -15,12 +15,18 @@ const ZoneHeader = ({ currentLives }: { currentLives: number }) => {
     dog: Dog,
     elephant: Elephant,
   };
+  const characterKey =
+    character && character in animals
+      ? (character as keyof typeof animals)
+      : null;
 
   return (
     <div>
       <div className="flex justify-between px-2 pt-1">
         <div className="flex items-center">
-          <img src={animals[character]} width={60} alt={character} />
+          {characterKey && (
+            <img src={animals[characterKey]} width={60} alt={characterKey} />
+          )}
           <p className="text-xl text-white font-bold capitalize">{name}</p>
         </div>
         <div className="flex gap-2 items-center">

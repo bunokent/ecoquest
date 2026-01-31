@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import ZoneHeader from "../components/ZoneHeader";
 import NoHeart from "../components/NoHeart";
 import BadgeReward from "../components/BadgeReward";
-import { useNavigate } from "react-router-dom";
 
 import Bg from "../assets/school-mg/02.svg";
 import RecycleBin from "../assets/school-mg/recycle.svg";
@@ -70,14 +69,11 @@ const SchoolMiniGames = () => {
   const [items, setItems] = useState<ScatteredItem[]>([]);
   const [selectedItemId, setSelectedItemId] = useState<number | null>(null);
   const [feedback, setFeedback] = useState<null | "correct" | "wrong">(null);
-  const [score, setScore] = useState<number>(0);
-  const { isSliding, triggerSlide } = useSlideTransition();
+  const { isSliding } = useSlideTransition();
 
   const [showResult, setShowResult] = useState(false);
   const [resultIndex, setResultIndex] = useState(0);
   const [showBadge, setShowBadge] = useState(false);
-
-  const navigate = useNavigate();
 
   // helpers
   function shuffle<T>(arr: T[]) {
@@ -148,7 +144,6 @@ const SchoolMiniGames = () => {
 
     if (bin === it.type) {
       setFeedback("correct");
-      setScore((s) => s + 1);
       setItems((prev) =>
         prev.map((p) => (p.id === it.id ? { ...p, collected: true } : p)),
       );

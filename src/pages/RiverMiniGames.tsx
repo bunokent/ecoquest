@@ -84,7 +84,7 @@ const RiverMiniGames = () => {
 
   const page = pages[pageIndex];
 
-  const { isSliding, triggerSlide } = useSlideTransition();
+  const { isSliding } = useSlideTransition();
 
   // ---------- HANDLERS ----------
   const [showReward, setShowReward] = useState(false);
@@ -131,7 +131,6 @@ const RiverMiniGames = () => {
     }
   }, [isLastPage]);
 
-
   // ---------- RENDER ----------
   return (
     <div className="relative w-full h-screen overflow-hidden">
@@ -157,10 +156,11 @@ const RiverMiniGames = () => {
 
       {/* STORY MODE */}
       {page.type === "story" && (
-        <div className={`absolute right-10 z-20 flex space-x-4 ${
-          showReward ? "bottom-0" : "bottom-10"
-        }`}>
-          
+        <div
+          className={`absolute right-10 z-20 flex space-x-4 ${
+            showReward ? "bottom-0" : "bottom-10"
+          }`}
+        >
           {!showReward && (
             <button onClick={handleNext}>
               <img src={NextButton} alt="next" />
@@ -176,7 +176,6 @@ const RiverMiniGames = () => {
               isSliding={isSliding}
             />
           )}
-
         </div>
       )}
 
