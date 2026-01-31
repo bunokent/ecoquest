@@ -1,17 +1,25 @@
 import { useState } from "react";
 import ZoneHeader from "../components/ZoneHeader";
+import NoHeart from "../components/NoHeart";
+import { useSlideTransition } from "../hooks/useSlideTransition";
+
 import Background from "../assets/forest/background3.svg";
 import MiniGame from "../assets/forest/minigamebanner.svg";
 import MiniGameConvo from "../assets/forest/minigameconvo.svg";
 import MinigameNpc from "../assets/forest/minigamenpc.svg";
 import PlayBtn from "../assets/forest/playbtn.svg";
-import CorrectAnswer from "../components/CorrectAnswer";
-import WrongAnswer from "../components/WrongAnswer";
 import SpellBanner from "../assets/forest/spellbanner.svg";
 import CongratsBanner from "../assets/forest/congratsminigame.svg";
 import CongratsConvo1 from "../assets/forest/minigameconvo1.svg";
 import CongratsConvo2 from "../assets/forest/minigameconvo2.svg";
-import NoHeart from "../components/NoHeart";
+
+// Result assets
+import Congrats from "../assets/congratsbanner.svg";
+import CongratsConvo from "../assets/correct.svg";
+import HappyNpc from "../assets/happynpc.svg";
+import WrongBanner from "../assets/wrongbanner.svg";
+import WrongAns from "../assets/wronganswer.svg";
+import CryNpc from "../assets/crynpc.svg";
 
 const ForestMiniGames = () => {
   const [currentLives, setCurrentLives] = useState<number>(3);
@@ -19,6 +27,7 @@ const ForestMiniGames = () => {
   const [userAnswer, setUserAnswer] = useState<string>("");
   const [showResult, setShowResult] = useState<boolean>(false);
   const [isCorrect, setIsCorrect] = useState<boolean>(false);
+  const { isSliding, triggerSlide } = useSlideTransition();
 
   const questions = {
     1: {
@@ -36,9 +45,11 @@ const ForestMiniGames = () => {
   };
 
   const handleContinue = () => {
-    setShowResult(false);
-    setUserAnswer("");
-    setCurrentPage((prev) => prev + 1);
+    triggerSlide(() => {
+      setShowResult(false);
+      setUserAnswer("");
+      setCurrentPage((prev) => prev + 1);
+    });
   };
 
   const handleSubmit = () => {
@@ -51,10 +62,48 @@ const ForestMiniGames = () => {
   };
 
   const handleWrongContinue = () => {
-    setShowResult(false);
-    setUserAnswer("");
-    setCurrentPage((prev) => prev + 1);
+    triggerSlide(() => {
+      setCurrentLives((prev) => Math.max(0, prev - 1));
+      setShowResult(false);
+      setUserAnswer("");
+      setCurrentPage((prev) => prev + 1);
+    });
   };
+
+  // Render Correct Answer
+  const renderCorrectAnswer = () => (
+    <div className={isSliding ? "animate-slide-out" : ""}>
+      <img
+        src={Congrats}
+        aria-hidden={true}
+        className="w-full relative bottom-15"
+      />
+      <img
+        src={CongratsConvo}
+        aria-hidden={true}
+        className="relative bottom-55"
+      />
+      <img src={HappyNpc} aria-hidden={true} className="relative bottom-75" />
+      <button className="fixed bottom-5 right-10" onClick={handleContinue}>
+        <img src={PlayBtn} alt="Play" />
+      </button>
+    </div>
+  );
+
+  // Render Wrong Answer
+  const renderWrongAnswer = () => (
+    <div className={isSliding ? "animate-slide-out" : ""}>
+      <img src={WrongBanner} aria-hidden={true} className="w-full relative " />
+      <img src={WrongAns} aria-hidden={true} className="relative bottom-20" />
+      <img src={CryNpc} aria-hidden={true} className="relative bottom-40" />
+      <button
+        className="fixed bottom-5 right-10"
+        onClick={handleWrongContinue}
+      >
+        <img src={PlayBtn} alt="Play" />
+      </button>
+    </div>
+  );
   return (
     <div className="max-h-screen  overflow-hidden">
       <div>
@@ -194,15 +243,7 @@ const ForestMiniGames = () => {
           </div>
         </>
       )}
-      {showResult &&
-        (isCorrect ? (
-          <CorrectAnswer onContinue={handleContinue} />
-        ) : (
-          <WrongAnswer
-            onContinue={handleWrongContinue}
-            setCurrentLives={setCurrentLives}
-          />
-        ))}
+      {showResult && (isCorrect ? renderCorrectAnswer() : renderWrongAnswer())}
 
       {currentPage === 1 && (
         <button className="fixed bottom-5 right-10">

@@ -1,18 +1,25 @@
 import { useState } from "react";
 import ZoneHeader from "../components/ZoneHeader";
+import NoHeart from "../components/NoHeart";
+import MatchingGame from "../components/MatchingGame";
+import { useSlideTransition } from "../hooks/useSlideTransition";
+
 import Background from "../assets/city/background4.svg";
 import MiniGame from "../assets/forest/minigamebanner.svg";
 import MiniGameConvo from "../assets/city/minigameconvo.svg";
 import MinigameNpc from "../assets/city/minigamenpc.svg";
 import PlayBtn from "../assets/forest/playbtn.svg";
 import MatchType from "../assets/city/matchtype.svg";
-import MatchingGame from "../components/MatchingGame";
-import CorrectAnswer from "../components/CorrectAnswer";
-import NoHeart from "../components/NoHeart";
+
+// Result assets
+import Congrats from "../assets/congratsbanner.svg";
+import CongratsConvo from "../assets/correct.svg";
+import HappyNpc from "../assets/city/happynpc.svg";
 
 const CityMiniGames = () => {
   const [currentLives, setCurrentLives] = useState<number>(3);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const { isSliding, triggerSlide } = useSlideTransition();
 
   const columna = {
     1: "Rubber boots",
@@ -38,8 +45,30 @@ const CityMiniGames = () => {
   };
 
   const handleContinue = () => {
-    setCurrentPage((prev) => prev + 1);
+    triggerSlide(() => {
+      setCurrentPage((prev) => prev + 1);
+    });
   };
+
+  // Render Correct Answer
+  const renderCorrectAnswer = () => (
+    <div className={isSliding ? "animate-slide-out" : ""}>
+      <img
+        src={Congrats}
+        aria-hidden={true}
+        className="w-full relative bottom-15"
+      />
+      <img
+        src={CongratsConvo}
+        aria-hidden={true}
+        className="relative bottom-55"
+      />
+      <img src={HappyNpc} aria-hidden={true} className="relative bottom-75" />
+      <button className="fixed bottom-5 right-10" onClick={handleContinue}>
+        <img src={PlayBtn} alt="Play" />
+      </button>
+    </div>
+  );
 
   return (
     <div>
@@ -91,7 +120,7 @@ const CityMiniGames = () => {
           />
         </>
       )}
-      {currentPage === 3 && <CorrectAnswer onContinue={handleContinue} />}
+      {currentPage === 3 && renderCorrectAnswer()}
 
       {currentPage === 1 && (
         <button className="fixed bottom-5 right-10">

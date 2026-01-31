@@ -5,6 +5,7 @@ import FunFactConvo2 from "../assets/city/funfact2.svg";
 import FunFactConvo3 from "../assets/city/funfact3.svg";
 import FunFactNpc from "../assets/city/funfactnpc.svg";
 import PlayBtn from "../assets/forest/playbtn.svg";
+import { useSlideTransition } from "../hooks/useSlideTransition";
 
 const CityFunFact = ({
   currentPage,
@@ -13,8 +14,9 @@ const CityFunFact = ({
   currentPage: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
 }) => {
+  const { isSliding, triggerSlide } = useSlideTransition();
   return (
-    <div>
+    <div className={isSliding ? "animate-slide-out" : ""}>
       {currentPage === 4 && (
         <div className="relative bottom-15">
           <img src={FunFactBanner} aria-hidden={true} className="w-full"></img>
@@ -65,9 +67,7 @@ const CityFunFact = ({
 
       <button
         className="fixed bottom-5 right-10"
-        onClick={() => {
-          setCurrentPage((prev) => prev + 1);
-        }}
+        onClick={() => triggerSlide(() => setCurrentPage((prev) => prev + 1))}
       >
         <img src={PlayBtn} alt="Play" />
       </button>
