@@ -78,7 +78,7 @@ const pages: Page[] = [
 
 // ---------- COMPONENT ----------
 const BeachMiniGames = () => {
-  const [currentLives, setCurrentLives] = useState<number>(2);
+  const [currentLives, setCurrentLives] = useState<number>(3);
   const [pageIndex, setPageIndex] = useState<number>(0);
   const [userAnswer, setUserAnswer] = useState<string>("");
   const [answerResult, setAnswerResult] = useState<AnswerResult>(null);
@@ -125,7 +125,7 @@ const BeachMiniGames = () => {
         10,
       );
       if (currentProgress === 5) {
-        localStorage.setItem("progress", "5");
+        localStorage.setItem("progress", "6");
       }
     }
   }, [isLastPage]);
@@ -156,8 +156,8 @@ const BeachMiniGames = () => {
       {/* STORY MODE */}
       {page.type === "story" && (
         <div
-          className={`absolute right-10 z-20 flex space-x-4 ${
-            showReward ? "bottom-0" : "bottom-10"
+          className={`absolute z-20 flex space-x-4 ${
+            showReward ? "inset-0 items-center justify-center" : "bottom-10 right-10"
           }`}
         >
           {!showReward && (
