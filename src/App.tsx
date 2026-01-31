@@ -33,7 +33,6 @@ function App() {
 
   useEffect(() => {
     let cancelled = false;
-    const total = assetUrls.length || 1;
 
     const preloadAsset = (url: string) =>
       new Promise<void>((resolve) => {
