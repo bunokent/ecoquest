@@ -157,7 +157,9 @@ const RiverMiniGames = () => {
 
       {/* STORY MODE */}
       {page.type === "story" && (
-        <div className="absolute bottom-10 right-10 z-20 flex space-x-4">
+        <div className={`absolute right-10 z-20 flex space-x-4 ${
+          showReward ? "bottom-0" : "bottom-10"
+        }`}>
           
           {!showReward && (
             <button onClick={handleNext}>

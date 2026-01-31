@@ -16,7 +16,7 @@ import CheckChar from "../assets/beach/c2.svg";
 import WrongChar from "../assets/beach/wrong-char.svg";
 
 import Background from "../assets/beach-mg/beachbadgebg.svg";
-import RiverBadge from "../assets/map/zone5btn.svg";
+import BeachBadge from "../assets/map/zone5btn.svg";
 
 import ZoneHeader from "../components/ZoneHeader";
 
@@ -159,24 +159,24 @@ const BeachMiniGames = () => {
 
       {/* STORY MODE */}
       {page.type === "story" && (
-        <div className="absolute bottom-10 right-10 z-20 flex space-x-4">
+        <div className={`absolute right-10 z-20 flex space-x-4 ${
+          showReward ? "bottom-0" : "bottom-10"
+        }`}>
           
           {!showReward && (
             <button onClick={handleNext}>
               <img src={NextButton} alt="next" />
             </button>
           )}
-
           {showReward && (
-            <BadgeReward
-              background={Background}
-              badge={RiverBadge}
-              nextZone="city"
-              zoneName="River"
-              isSliding={isSliding}
-            />
+              <BadgeReward
+                background={Background}
+                badge={BeachBadge}
+                nextZone="null"
+                zoneName="Beach"
+                isSliding={isSliding}
+              />
           )}
-
         </div>
       )}
 
