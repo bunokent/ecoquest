@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import ZoneHeader from "../components/ZoneHeader";
 import NoHeart from "../components/NoHeart";
 import BadgeReward from "../components/BadgeReward";
-import { useSlideTransition } from "../hooks/useSlideTransition";
 
 import Background from "../assets/forest/minigamesbg.svg";
 import MiniGame from "../assets/forest/minigamebanner.svg";
@@ -13,7 +12,7 @@ import SpellBanner from "../assets/forest/spellbanner.svg";
 import CongratsBanner from "../assets/forest/congratsminigame.svg";
 import CongratsConvo1 from "../assets/forest/minigameconvo1.svg";
 import CongratsConvo2 from "../assets/forest/minigameconvo2.svg";
-import ForestBadge from "../assets/badges/forestbadge.svg";
+import ForestBadge from "../assets/badges/forestbadge.png";
 
 // Result assets
 import Congrats from "../assets/congratsbanner.svg";
@@ -29,7 +28,6 @@ const ForestMiniGames = () => {
   const [userAnswer, setUserAnswer] = useState<string>("");
   const [showResult, setShowResult] = useState<boolean>(false);
   const [isCorrect, setIsCorrect] = useState<boolean>(false);
-  const { isSliding, triggerSlide } = useSlideTransition();
 
   const questions = {
     1: {
@@ -48,11 +46,9 @@ const ForestMiniGames = () => {
   };
 
   const handleContinue = () => {
-    triggerSlide(() => {
-      setShowResult(false);
-      setUserAnswer("");
-      setCurrentPage((prev) => prev + 1);
-    });
+    setShowResult(false);
+    setUserAnswer("");
+    setCurrentPage((prev) => prev + 1);
   };
 
   const handleSubmit = () => {
@@ -65,12 +61,10 @@ const ForestMiniGames = () => {
   };
 
   const handleWrongContinue = () => {
-    triggerSlide(() => {
-      setCurrentLives((prev) => Math.max(0, prev - 1));
-      setShowResult(false);
-      setUserAnswer("");
-      setCurrentPage((prev) => prev + 1);
-    });
+    setCurrentLives((prev) => Math.max(0, prev - 1));
+    setShowResult(false);
+    setUserAnswer("");
+    setCurrentPage((prev) => prev + 1);
   };
 
   // Increment progress when reaching congratulations page
@@ -88,7 +82,7 @@ const ForestMiniGames = () => {
 
   // Render Correct Answer
   const renderCorrectAnswer = () => (
-    <div className={isSliding ? "animate-slide-out" : ""}>
+    <div>
       <img
         src={Congrats}
         aria-hidden={true}
@@ -108,7 +102,7 @@ const ForestMiniGames = () => {
 
   // Render Wrong Answer
   const renderWrongAnswer = () => (
-    <div className={isSliding ? "animate-slide-out" : ""}>
+    <div>
       <img src={WrongBanner} aria-hidden={true} className="w-full relative " />
       <img src={WrongAns} aria-hidden={true} className="relative bottom-20" />
       <img src={CryNpc} aria-hidden={true} className="relative bottom-40" />
@@ -129,7 +123,7 @@ const ForestMiniGames = () => {
         </div>
         {currentLives === 0 && <NoHeart zone="forest" />}
       </div>
-      <ZoneHeader currentLives={currentLives} />
+      {currentPage !== 7 && <ZoneHeader currentLives={currentLives} />}
       {currentPage === 1 && (
         <>
           <img
@@ -325,7 +319,6 @@ const ForestMiniGames = () => {
           badge={ForestBadge}
           nextZone="river"
           zoneName="Forest"
-          isSliding={isSliding}
         />
       )}
     </div>

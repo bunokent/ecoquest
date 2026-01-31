@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ZoneHeader from "../components/ZoneHeader";
 import NoHeart from "../components/NoHeart";
-import { useSlideTransition } from "../hooks/useSlideTransition";
 
 // Backgrounds
 import Background1 from "../assets/city/background1.svg";
@@ -49,7 +48,6 @@ const City = () => {
   const [showResult, setShowResult] = useState<boolean>(false);
   const [isCorrect, setIsCorrect] = useState<boolean>(false);
   const navigate = useNavigate();
-  const { isSliding, triggerSlide } = useSlideTransition();
 
   useEffect(() => {
     if (currentPage === 9 && currentLives > 0) {
@@ -70,20 +68,16 @@ const City = () => {
   }
 
   const handleContinue = () => {
-    triggerSlide(() => {
-      setShowResult(false);
-      setSelectedIndex(null);
-      setCurrentPage((prev) => prev + 1);
-    });
+    setShowResult(false);
+    setSelectedIndex(null);
+    setCurrentPage((prev) => prev + 1);
   };
 
   const handleWrongContinue = () => {
-    triggerSlide(() => {
-      setCurrentLives((prev) => Math.max(0, prev - 1));
-      setShowResult(false);
-      setSelectedIndex(null);
-      setCurrentPage((prev) => prev + 1);
-    });
+    setCurrentLives((prev) => Math.max(0, prev - 1));
+    setShowResult(false);
+    setSelectedIndex(null);
+    setCurrentPage((prev) => prev + 1);
   };
 
   const answers = {
@@ -133,7 +127,7 @@ const City = () => {
 
   // Render Correct Answer
   const renderCorrectAnswer = () => (
-    <div className={isSliding ? "animate-slide-out" : ""}>
+    <div>
       <img
         src={Congrats}
         aria-hidden={true}
@@ -157,7 +151,7 @@ const City = () => {
 
   // Render Wrong Answer
   const renderWrongAnswer = () => (
-    <div className={isSliding ? "animate-slide-out" : ""}>
+    <div>
       <img src={WrongBanner} aria-hidden={true} className="w-full relative " />
       <img src={WrongAns} aria-hidden={true} className="relative bottom-20" />
       <img
@@ -173,7 +167,7 @@ const City = () => {
 
   // Render Intro
   const renderIntro = () => (
-    <div className={isSliding ? "animate-slide-out" : ""}>
+    <div>
       {currentPage === 1 && (
         <div className="relative bottom-15">
           <img src={CityBanner} aria-hidden={true} className="w-full" />
@@ -210,7 +204,7 @@ const City = () => {
 
       <button
         className="fixed bottom-5 right-10"
-        onClick={() => triggerSlide(() => setCurrentPage((prev) => prev + 1))}
+        onClick={() => setCurrentPage((prev) => prev + 1)}
       >
         <img src={PlayBtn} alt="Play" />
       </button>
@@ -219,7 +213,7 @@ const City = () => {
 
   // Render Fun Facts
   const renderFunFact = () => (
-    <div className={isSliding ? "animate-slide-out" : ""}>
+    <div>
       {currentPage === 4 && (
         <div className="relative bottom-15">
           <img src={FunFactBanner} aria-hidden={true} className="w-full" />
@@ -270,7 +264,7 @@ const City = () => {
 
       <button
         className="fixed bottom-5 right-10"
-        onClick={() => triggerSlide(() => setCurrentPage((prev) => prev + 1))}
+        onClick={() => setCurrentPage((prev) => prev + 1)}
       >
         <img src={PlayBtn} alt="Play" />
       </button>

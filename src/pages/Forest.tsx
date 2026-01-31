@@ -2,12 +2,11 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ZoneHeader from "../components/ZoneHeader";
 import NoHeart from "../components/NoHeart";
-import { useSlideTransition } from "../hooks/useSlideTransition";
 
 // Backgrounds
-import Background from "../assets/forest/background.svg";
-import Background2 from "../assets/forest/background2.svg";
-import Background3 from "../assets/forest/background3.svg";
+import Background from "../assets/forest/background.png";
+import Background2 from "../assets/forest/background2.png";
+import Background3 from "../assets/forest/background3.png";
 import CorrectBackground from "../assets/forest/minigamesbg.svg";
 
 // Intro assets
@@ -49,7 +48,6 @@ const Forest = () => {
   const [showResult, setShowResult] = useState<boolean>(false);
   const [isCorrect, setIsCorrect] = useState<boolean>(false);
   const navigate = useNavigate();
-  const { isSliding, triggerSlide } = useSlideTransition();
 
   let currentBackground = Background;
 
@@ -68,20 +66,16 @@ const Forest = () => {
   }, [currentPage, currentLives, navigate]);
 
   const handleContinue = () => {
-    triggerSlide(() => {
-      setShowResult(false);
-      setSelectedIndex(null);
-      setCurrentPage((prev) => prev + 1);
-    });
+    setShowResult(false);
+    setSelectedIndex(null);
+    setCurrentPage((prev) => prev + 1);
   };
 
   const handleWrongContinue = () => {
-    triggerSlide(() => {
-      setCurrentLives((prev) => Math.max(0, prev - 1));
-      setShowResult(false);
-      setSelectedIndex(null);
-      setCurrentPage((prev) => prev + 1);
-    });
+    setCurrentLives((prev) => Math.max(0, prev - 1));
+    setShowResult(false);
+    setSelectedIndex(null);
+    setCurrentPage((prev) => prev + 1);
   };
 
   const answers = {
@@ -131,7 +125,7 @@ const Forest = () => {
 
   // Render Correct Answer
   const renderCorrectAnswer = () => (
-    <div className={isSliding ? "animate-slide-out" : ""}>
+    <div>
       <img
         src={Congrats}
         aria-hidden={true}
@@ -155,7 +149,7 @@ const Forest = () => {
 
   // Render Wrong Answer
   const renderWrongAnswer = () => (
-    <div className={isSliding ? "animate-slide-out" : ""}>
+    <div>
       <img src={WrongBanner} aria-hidden={true} className="w-full relative " />
       <img src={WrongAns} aria-hidden={true} className="relative bottom-20" />
       <img
@@ -171,14 +165,14 @@ const Forest = () => {
 
   // Render Intro
   const renderIntro = () => (
-    <div className={isSliding ? "animate-slide-out" : ""}>
+    <div>
       {currentPage === 1 && (
         <div className="relative bottom-15">
           <img src={ForestBanner} aria-hidden={true} className="w-full" />
           <img
             src={ForestConvo}
             aria-hidden={true}
-            className="relative bottom-35"
+            className="relative bottom-35 mx-auto"
           />
           <img
             src={ForestNpc}
@@ -191,11 +185,15 @@ const Forest = () => {
       {currentPage === 2 && (
         <div className="flex flex-col items-center justify-center">
           <div className="relative bottom-15">
-            <img src={ObjectiveBanner} aria-hidden={true} className="w-full" />
+            <img
+              src={ObjectiveBanner}
+              aria-hidden={true}
+              className="w-screen"
+            />
             <img
               src={ObjectiveConvo}
               aria-hidden={true}
-              className="relative bottom-15"
+              className="relative bottom-17 mx-auto"
             />
             <img
               src={ObjectiveNpc}
@@ -208,7 +206,7 @@ const Forest = () => {
 
       <button
         className="fixed bottom-5 right-10"
-        onClick={() => triggerSlide(() => setCurrentPage((prev) => prev + 1))}
+        onClick={() => setCurrentPage((prev) => prev + 1)}
       >
         <img src={PlayBtn} alt="Play" />
       </button>
@@ -217,7 +215,7 @@ const Forest = () => {
 
   // Render Fun Facts
   const renderFunFact = () => (
-    <div className={isSliding ? "animate-slide-out" : ""}>
+    <div>
       {currentPage === 4 && (
         <div className="relative bottom-15">
           <img src={FunFactBanner} aria-hidden={true} className="w-full" />
@@ -284,7 +282,7 @@ const Forest = () => {
 
       <button
         className="fixed bottom-5 right-10"
-        onClick={() => triggerSlide(() => setCurrentPage((prev) => prev + 1))}
+        onClick={() => setCurrentPage((prev) => prev + 1)}
       >
         <img src={PlayBtn} alt="Play" />
       </button>
@@ -342,7 +340,7 @@ const Forest = () => {
                     key={i}
                     type="button"
                     onClick={() => setSelectedIndex(i)}
-                    className={`rounded-md border px-3 py-2 text-left transition-all ${
+                    className={`rounded-md border px-3 py-2 text-left ${
                       selectedIndex === i
                         ? "border-emerald-600 bg-emerald-100 text-emerald-900"
                         : "border-transparent bg-white/70 hover:bg-white"
@@ -356,7 +354,7 @@ const Forest = () => {
             <button
               type="button"
               disabled={selectedIndex === null}
-              className={`mt-4 w-full rounded-md px-4 py-2 font-bold uppercase transition-all ${
+              className={`mt-4 w-full rounded-md px-4 py-2 font-bold uppercase ${
                 selectedIndex === null
                   ? "cursor-not-allowed bg-slate-300 text-slate-600"
                   : "bg-emerald-600 text-white hover:bg-emerald-700"

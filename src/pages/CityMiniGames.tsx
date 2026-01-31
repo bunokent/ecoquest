@@ -3,7 +3,6 @@ import ZoneHeader from "../components/ZoneHeader";
 import NoHeart from "../components/NoHeart";
 import MatchingGame from "../components/MatchingGame";
 import BadgeReward from "../components/BadgeReward";
-import { useSlideTransition } from "../hooks/useSlideTransition";
 
 import Background from "../assets/city/background4.svg";
 import MiniGame from "../assets/forest/minigamebanner.svg";
@@ -23,7 +22,6 @@ import CityBadge from "../assets/badges/citybadge.svg";
 const CityMiniGames = () => {
   const [currentLives, setCurrentLives] = useState<number>(3);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const { isSliding, triggerSlide } = useSlideTransition();
 
   const columna = {
     1: "Rubber boots",
@@ -49,9 +47,7 @@ const CityMiniGames = () => {
   };
 
   const handleContinue = () => {
-    triggerSlide(() => {
-      setCurrentPage((prev) => prev + 1);
-    });
+    setCurrentPage((prev) => prev + 1);
   };
 
   useEffect(() => {
@@ -68,7 +64,7 @@ const CityMiniGames = () => {
 
   // Render Correct Answer
   const renderCorrectAnswer = () => (
-    <div className={isSliding ? "animate-slide-out" : ""}>
+    <div>
       <img
         src={Congrats}
         aria-hidden={true}
@@ -88,7 +84,7 @@ const CityMiniGames = () => {
 
   // Render Final Congrats
   const renderFinalCongrats = () => (
-    <div className={isSliding ? "animate-slide-out" : ""}>
+    <div>
       <img
         src={Congrats}
         aria-hidden={true}
@@ -120,7 +116,7 @@ const CityMiniGames = () => {
         </div>
       </div>
       {currentLives === 0 && <NoHeart zone="city" />}
-      <ZoneHeader currentLives={currentLives} />
+      {currentPage !== 5 && <ZoneHeader currentLives={currentLives} />}
       {currentPage === 1 && (
         <>
           <img
@@ -166,7 +162,6 @@ const CityMiniGames = () => {
           badge={CityBadge}
           nextZone="school"
           zoneName="City"
-          isSliding={isSliding}
         />
       )}
 

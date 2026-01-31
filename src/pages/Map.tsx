@@ -1,28 +1,28 @@
 import MapHeader from "../components/MapHeader";
-import Background from "../assets/map/map.svg";
-import Map1 from "../assets/map/map1.svg";
-import Map2 from "../assets/map/map2.svg";
-import Map3 from "../assets/map/map3.svg";
-import Map4 from "../assets/map/map4.svg";
-import Map5 from "../assets/map/map5.svg";
-import Map6 from "../assets/map/map6.svg";
+import Background from "../assets/map/map.png";
+import Map1 from "../assets/map/map1.png";
+import Map2 from "../assets/map/map2.png";
+import Map3 from "../assets/map/map3.png";
+import Map4 from "../assets/map/map4.png";
+import Map5 from "../assets/map/map5.png";
+import Map6 from "../assets/map/map6.png";
 import { Link } from "react-router-dom";
 import PlayBtn from "../assets/map/playbtn.svg";
 import { useState } from "react";
 
-import Zone1Btn from "../assets/map/zone1btn.svg";
-import Zone2Btn from "../assets/map/zone2btn.svg";
-import Zone3Btn from "../assets/map/zone3btn.svg";
-import Zone4Btn from "../assets/map/zone4btn.svg";
-import Zone5Btn from "../assets/map/zone5btn.svg";
+import Zone1Btn from "../assets/map/zone1btn.png";
+import Zone2Btn from "../assets/map/zone2btn.png";
+import Zone3Btn from "../assets/map/zone3btn.png";
+import Zone4Btn from "../assets/map/zone4btn.png";
+import Zone5Btn from "../assets/map/zone5btn.png";
 
-import Zone2Lock from "../assets/map/zone2lock.svg";
-import Zone3Lock from "../assets/map/zone3lock.svg";
-import Zone4Lock from "../assets/map/zone4lock.svg";
-import Zone5Lock from "../assets/map/zone5lock.svg";
+import Zone2Lock from "../assets/map/zone2lock.png";
+import Zone3Lock from "../assets/map/zone3lock.png";
+import Zone4Lock from "../assets/map/zone4lock.png";
+import Zone5Lock from "../assets/map/zone5lock.png";
 
-import MapChar from "../assets/map/man.svg";
-import ViewMap from "../assets/map/viewmapbtn.svg";
+import MapChar from "../assets/map/man.png";
+import ViewMap from "../assets/map/viewmapbtn.png";
 
 const Map = () => {
   const [play, setPlay] = useState<boolean>(false);

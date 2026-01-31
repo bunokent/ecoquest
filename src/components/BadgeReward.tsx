@@ -5,7 +5,6 @@ interface BadgeRewardProps {
   badge: string;
   nextZone?: string;
   zoneName: string;
-  isSliding?: boolean;
 }
 
 const BadgeReward = ({
@@ -13,14 +12,13 @@ const BadgeReward = ({
   badge,
   nextZone,
   zoneName,
-  isSliding = false,
 }: BadgeRewardProps) => {
   const progress = parseInt(localStorage.getItem("progress") || "1", 10);
 
-  const canGoNext = progress < 5; // hide if progress is 5
+  const canGoNext = progress < 5;
 
   return (
-    <div className={isSliding ? "animate-slide-out" : ""}>
+    <div>
       <div className="-z-10 fixed inset-0 w-screen h-screen">
         <img
           src={background}
@@ -43,7 +41,7 @@ const BadgeReward = ({
           <img
             src={badge}
             alt={`${zoneName} Badge`}
-            className="w-64 h-64 drop-shadow-2xl transform hover:scale-110 transition-transform duration-300"
+            className="w-50 h-64 drop-shadow-2xl transform hover:scale-110 transition-transform duration-300"
           />
           <div className="absolute inset-0 bg-yellow-200 rounded-full blur-3xl opacity-30 animate-pulse"></div>
         </div>

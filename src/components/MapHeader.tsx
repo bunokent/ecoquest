@@ -1,4 +1,4 @@
-import Woodbox from "../assets/map/woodbox.svg";
+import Woodbox from "../assets/map/woodbox.png";
 import Croco from "../assets/start/crocodile.svg";
 import Deer from "../assets/start/deer.svg";
 import Dog from "../assets/start/dog.svg";

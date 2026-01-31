@@ -15,14 +15,13 @@ import WrongAns from "../assets/river/wrong.svg";
 import CheckChar from "../assets/river/check-char.svg";
 import WrongChar from "../assets/river/wrong-char.svg";
 
-import Background from "../assets/river-mg/riverbadgebg.svg";
-import RiverBadge from "../assets/map/zone2btn.svg";
+import Background from "../assets/badges/riverbadge.png";
+import RiverBadge from "../assets/map/zone2btn.png";
 
 import ZoneHeader from "../components/ZoneHeader";
 
 import NoHeart from "../components/NoHeart";
 import BadgeReward from "../components/BadgeReward";
-import { useSlideTransition } from "../hooks/useSlideTransition";
 
 // ---------- TYPES ----------
 type StoryPage = {
@@ -83,8 +82,6 @@ const RiverMiniGames = () => {
   const [answerResult, setAnswerResult] = useState<AnswerResult>(null);
 
   const page = pages[pageIndex];
-
-  const { isSliding } = useSlideTransition();
 
   // ---------- HANDLERS ----------
   const [showReward, setShowReward] = useState(false);
@@ -173,7 +170,6 @@ const RiverMiniGames = () => {
               badge={RiverBadge}
               nextZone="city"
               zoneName="River"
-              isSliding={isSliding}
             />
           )}
         </div>

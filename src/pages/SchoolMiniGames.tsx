@@ -18,11 +18,10 @@ import Glass from "../assets/school-mg/glass.svg";
 
 import C1 from "../assets/school/c2.svg";
 import bg from "../assets/school-mg/bg.svg";
-import badge from "../assets/school-mg/badge.svg";
+import badge from "../assets/badges/schoolbadge.png";
 import Congrats01 from "../assets/school-mg/03.svg";
 import Congrats02 from "../assets/school-mg/04.svg";
 import NextButton from "../assets/river/nextbtn.svg";
-import { useSlideTransition } from "../hooks/useSlideTransition";
 
 type BinType = "recycle" | "compost" | "trash" | "hazardous";
 
@@ -69,7 +68,6 @@ const SchoolMiniGames = () => {
   const [items, setItems] = useState<ScatteredItem[]>([]);
   const [selectedItemId, setSelectedItemId] = useState<number | null>(null);
   const [feedback, setFeedback] = useState<null | "correct" | "wrong">(null);
-  const { isSliding } = useSlideTransition();
 
   const [showResult, setShowResult] = useState(false);
   const [resultIndex, setResultIndex] = useState(0);
@@ -181,7 +179,6 @@ const SchoolMiniGames = () => {
         badge={badge}
         nextZone="beach"
         zoneName="School"
-        isSliding={isSliding}
       />
     );
   }

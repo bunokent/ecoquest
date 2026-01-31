@@ -16,13 +16,12 @@ import CheckChar from "../assets/beach/c2.svg";
 import WrongChar from "../assets/beach/wrong-char.svg";
 
 import Background from "../assets/beach-mg/beachbadgebg.svg";
-import BeachBadge from "../assets/map/zone5btn.svg";
+import BeachBadge from "../assets/badges/beachbadge.png";
 
 import ZoneHeader from "../components/ZoneHeader";
 
 import NoHeart from "../components/NoHeart";
 import BadgeReward from "../components/BadgeReward";
-import { useSlideTransition } from "../hooks/useSlideTransition";
 
 // ---------- TYPES ----------
 type StoryPage = {
@@ -85,8 +84,6 @@ const BeachMiniGames = () => {
   const [answerResult, setAnswerResult] = useState<AnswerResult>(null);
 
   const page = pages[pageIndex];
-
-  const { isSliding } = useSlideTransition();
 
   // ---------- HANDLERS ----------
   const [showReward, setShowReward] = useState(false);
@@ -174,7 +171,6 @@ const BeachMiniGames = () => {
               badge={BeachBadge}
               nextZone="null"
               zoneName="Beach"
-              isSliding={isSliding}
             />
           )}
         </div>
