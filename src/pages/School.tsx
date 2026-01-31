@@ -7,6 +7,7 @@ import Q2 from "../assets/school/05.svg";
 import FF2 from "../assets/school/06.svg";
 import Q3 from "../assets/school/07.svg";
 import FF3 from "../assets/school/08.svg";
+import miniGamesBG from "../assets/school/09.svg";
 
 import NextButton from "../assets/school/nextbtn.svg";
 import SubmitButton from "../assets/school/submitbtn.svg";
@@ -19,6 +20,7 @@ import C1 from "../assets/school/c1.svg";
 import C2 from "../assets/school/c2.svg";
 import C3 from "../assets/school/c3.svg";
 import ZoneHeader from "../components/ZoneHeader";
+import NoHeart from "../components/NoHeart";
 import { useNavigate } from "react-router-dom";
 
 // ---------- TYPES ----------
@@ -86,6 +88,7 @@ const pages: Page[] = [
     correct: 0,
   },
   { bg: FF3, char: C3, type: "story" },
+  { bg: miniGamesBG, char: C3, type: "story" },
 ];
 
 // ---------- COMPONENT ----------
@@ -128,6 +131,9 @@ const School = () => {
       <div className="fixed top-0 left-0 w-full z-100">
         <ZoneHeader currentLives={currentLives} />
       </div>
+
+      {/* overlay */}
+      {currentLives <= 0 && <NoHeart zone="school" />}
 
       {/* Background */}
       <img src={page.bg} className="w-full h-full object-cover" alt="scene" />

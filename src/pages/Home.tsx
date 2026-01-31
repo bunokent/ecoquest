@@ -1,14 +1,17 @@
 import { Link } from "react-router-dom";
-import Background from "../assets/home/home.svg";
+import BackgroundVideo from "../assets/home/home.mp4";
 import StartBtn from "../assets/home/startbtn.svg";
 
 const Home = () => {
   return (
     <div>
       <div className="w-screen h-screen absolute top-0 left-0 -z-10">
-        <img
-          src={Background}
-          aria-hidden={true}
+        <video
+          src={BackgroundVideo}
+          autoPlay
+          muted
+          loop
+          playsInline
           className="w-full h-full object-cover"
         />
       </div>
