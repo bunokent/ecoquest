@@ -16,7 +16,6 @@ import SchoolMiniGames from "./pages/SchoolMiniGames";
 import ProtectedRoute from "./components/ProtectedRoute";
 import BackgroundMusic from "./assets/musics/bgmusic.mp3";
 import ButtonClickMusic from "./assets/musics/buttonclick.mp3";
-import LoadingBg from "./assets/home/home.svg";
 
 function App() {
   const clickAudioRef = useRef<HTMLAudioElement | null>(null);
