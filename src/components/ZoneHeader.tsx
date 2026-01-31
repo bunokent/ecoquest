@@ -21,7 +21,7 @@ const ZoneHeader = ({ currentLives }: { currentLives: number }) => {
       <div className="flex justify-between px-2 pt-1">
         <div className="flex items-center">
           <img src={animals[character]} width={60} alt={character} />
-          <p className="font-bold capitalize">{name}</p>
+          <p className="text-xl text-white font-bold capitalize">{name}</p>
         </div>
         <div className="flex gap-2 items-center">
           {(() => {

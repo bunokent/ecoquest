@@ -6,18 +6,13 @@ import Background2 from "../assets/forest/background2.svg";
 import Background3 from "../assets/forest/background3.svg";
 import ForestFunFact from "../components/ForestFunFact";
 import ForestQuestions from "../components/ForestQuestions";
-import { Navigate, Router, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import NoHeart from "../components/NoHeart";
 
 const Forest = () => {
   let [currentLives, setCurrentLives] = useState<number>(3);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (currentPage === 9) {
-      navigate("/forest/mini-games");
-    }
-  }, [currentPage]);
 
   let currentBackground = Background;
 
@@ -27,15 +22,22 @@ const Forest = () => {
     currentBackground = Background3;
   }
 
+  useEffect(() => {
+    if (currentPage === 9 && currentLives > 0) {
+      navigate("/forest/mini-games");
+    }
+  }, [currentPage]);
+
   return (
-    <div className="overflow-hidden h-screen">
-      <div className="-z-10 fixed inset-0 w-screen h-screen">
+    <div className="overflow-hidden max-h-screen">
+      <div className="-z-10 absolute top-0  left-0 w-screen h-screen">
         <img
           src={currentBackground}
           aria-hidden={true}
-          className="object-cover w-full"
+          className="object-cover w-full  h-full"
         />
       </div>
+      {currentLives === 0 && <NoHeart zone="forest" />}
       <ZoneHeader currentLives={currentLives} />
       {currentPage < 3 && (
         <ForestIntro

@@ -8,6 +8,7 @@ import PlayBtn from "../assets/forest/playbtn.svg";
 import MatchType from "../assets/city/matchtype.svg";
 import MatchingGame from "../components/MatchingGame";
 import CorrectAnswer from "../components/CorrectAnswer";
+import NoHeart from "../components/NoHeart";
 
 const CityMiniGames = () => {
   const [currentLives, setCurrentLives] = useState<number>(3);
@@ -51,6 +52,7 @@ const CityMiniGames = () => {
           />
         </div>
       </div>
+      {currentLives === 0 && <NoHeart zone="city" />}
       <ZoneHeader currentLives={currentLives} />
       {currentPage === 1 && (
         <>

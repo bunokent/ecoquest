@@ -89,7 +89,7 @@ const ForestQuestions = ({
                 className="w-full"
               ></img>
               <div className="flex items-center w-full justify-center">
-                <div className="rounded w-[90%] bg-white/50 text-black font-semibold text-center text-lg p-5 relative bottom-12">
+                <div className="rounded w-[90%] bg-white/50 text-black text-center text-lg p-5 relative bottom-12">
                   <p className="font-bold">
                     The plants in the forest are turning yellow and being eaten
                     by insects.

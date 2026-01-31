@@ -11,6 +11,7 @@ import SpellBanner from "../assets/forest/spellbanner.svg";
 import CongratsBanner from "../assets/forest/congratsminigame.svg";
 import CongratsConvo1 from "../assets/forest/minigameconvo1.svg";
 import CongratsConvo2 from "../assets/forest/minigameconvo2.svg";
+import NoHeart from "../components/NoHeart";
 
 const ForestMiniGames = () => {
   const [currentLives, setCurrentLives] = useState<number>(3);
@@ -55,7 +56,7 @@ const ForestMiniGames = () => {
     setCurrentPage((prev) => prev + 1);
   };
   return (
-    <div>
+    <div className="max-h-screen  overflow-hidden">
       <div>
         <div className="-z-10 fixed inset-0 w-screen h-screen">
           <img
@@ -64,6 +65,7 @@ const ForestMiniGames = () => {
             className="object-cover w-full"
           />
         </div>
+        {currentLives === 0 && <NoHeart zone="forest" />}
       </div>
       <ZoneHeader currentLives={currentLives} />
       {currentPage === 1 && (

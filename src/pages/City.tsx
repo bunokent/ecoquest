@@ -8,6 +8,7 @@ import ZoneHeader from "../components/ZoneHeader";
 import CityIntro from "../components/CityIntro";
 import CityQuestions from "../components/CityQuestions";
 import CityFunFact from "./CityFunFact";
+import NoHeart from "../components/NoHeart";
 
 const City = () => {
   let [currentLives, setCurrentLives] = useState<number>(3);
@@ -15,7 +16,7 @@ const City = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (currentPage === 9) {
+    if (currentPage === 9 && currentLives > 0) {
       navigate("/city/mini-games");
     }
   }, [currentPage]);
@@ -39,6 +40,7 @@ const City = () => {
           className="object-cover w-full"
         />
       </div>
+      {currentLives === 0 && <NoHeart zone="city" />}
       <ZoneHeader currentLives={currentLives} />
       {currentPage < 3 && (
         <CityIntro currentPage={currentPage} setCurrentPage={setCurrentPage} />
