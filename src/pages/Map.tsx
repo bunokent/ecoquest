@@ -28,7 +28,7 @@ const Map = () => {
   const [play, setPlay] = useState<boolean>(false);
   const progress = parseInt(localStorage.getItem("progress") ?? "1", 10);
 
-  const maps = {
+  const maps: Record<number, string> = {
     1: Map1,
     2: Map2,
     3: Map3,
