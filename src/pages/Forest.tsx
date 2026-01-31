@@ -8,6 +8,7 @@ import { useSlideTransition } from "../hooks/useSlideTransition";
 import Background from "../assets/forest/background.svg";
 import Background2 from "../assets/forest/background2.svg";
 import Background3 from "../assets/forest/background3.svg";
+import CorrectBackground from "../assets/forest/minigamesbg.svg";
 
 // Intro assets
 import ForestBanner from "../assets/forest/forestbanner.svg";
@@ -52,7 +53,9 @@ const Forest = () => {
 
   let currentBackground = Background;
 
-  if (currentPage > 5 && currentPage < 8) {
+  if (showResult && isCorrect) {
+    currentBackground = CorrectBackground;
+  } else if (currentPage > 5 && currentPage < 8) {
     currentBackground = Background2;
   } else if (currentPage > 7) {
     currentBackground = Background3;
@@ -139,7 +142,11 @@ const Forest = () => {
         aria-hidden={true}
         className="relative bottom-55"
       />
-      <img src={HappyNpc} aria-hidden={true} className="relative bottom-75" />
+      <img
+        src={HappyNpc}
+        aria-hidden={true}
+        className="relative bottom-75 npc-float"
+      />
       <button className="fixed bottom-5 right-10" onClick={handleContinue}>
         <img src={PlayBtn} alt="Play" />
       </button>
@@ -151,7 +158,11 @@ const Forest = () => {
     <div className={isSliding ? "animate-slide-out" : ""}>
       <img src={WrongBanner} aria-hidden={true} className="w-full relative " />
       <img src={WrongAns} aria-hidden={true} className="relative bottom-20" />
-      <img src={CryNpc} aria-hidden={true} className="relative bottom-40" />
+      <img
+        src={CryNpc}
+        aria-hidden={true}
+        className="relative bottom-40 npc-float"
+      />
       <button className="fixed bottom-5 right-10" onClick={handleWrongContinue}>
         <img src={PlayBtn} alt="Play" />
       </button>

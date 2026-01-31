@@ -7,8 +7,8 @@ import EmptyHeart from "../assets/emptyheart.svg";
 
 const ZoneHeader = ({ currentLives }: { currentLives: number }) => {
   const lives = currentLives;
-  const character = "crocodile";
-  const name = "gabriel cabije";
+  const character = localStorage.getItem("character");
+  const name = localStorage.getItem("name");
   const animals = {
     deer: Deer,
     crocodile: Croco,

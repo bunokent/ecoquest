@@ -49,7 +49,7 @@ const pages: Page[] = [
     char: null,
     type: "question",
     question: "Throwing trash into the river causes________",
-    answer: "water pollution"
+    answer: "water pollution",
   },
 
   {
@@ -57,15 +57,16 @@ const pages: Page[] = [
     char: null,
     type: "question",
     question: "Plastic waste blocks sunlight and __________ needed by fish.",
-    answer: "oxygen"
+    answer: "oxygen",
   },
 
   {
     bg: MiniGBG,
     char: null,
     type: "question",
-    question: "Plastic waste can stay in rivers and oceans for __________ of years.",
-    answer: "hundreds"
+    question:
+      "Plastic waste can stay in rivers and oceans for __________ of years.",
+    answer: "hundreds",
   },
 
   { bg: Congrats01, char: C1, type: "story" },
@@ -74,7 +75,7 @@ const pages: Page[] = [
 
 // ---------- COMPONENT ----------
 const RiverMiniGames = () => {
-  const [currentLives, setCurrentLives] = useState<number>(2);
+  const [currentLives, setCurrentLives] = useState<number>(3);
   const [pageIndex, setPageIndex] = useState<number>(0);
   const [userAnswer, setUserAnswer] = useState<string>("");
   const [answerResult, setAnswerResult] = useState<AnswerResult>(null);
@@ -84,7 +85,7 @@ const RiverMiniGames = () => {
   // ---------- HANDLERS ----------
   const handleNext = () => {
     if (pageIndex < pages.length - 1) {
-      setPageIndex(p => p + 1);
+      setPageIndex((p) => p + 1);
     }
   };
 
@@ -97,7 +98,7 @@ const RiverMiniGames = () => {
         setAnswerResult("correct");
       } else {
         setAnswerResult("wrong");
-        setCurrentLives(l => l - 1);
+        setCurrentLives((l) => l - 1);
       }
     }
   };
@@ -105,7 +106,7 @@ const RiverMiniGames = () => {
   const handleResultNext = () => {
     setAnswerResult(null);
     setUserAnswer("");
-    setPageIndex(p => p + 1);
+    setPageIndex((p) => p + 1);
   };
 
   const isLastPage = pageIndex === pages.length - 1;
@@ -123,11 +124,7 @@ const RiverMiniGames = () => {
       {currentLives <= 0 && <NoHeart zone="river" />}
 
       {/* Background */}
-      <img
-        src={page.bg}
-        className="w-full h-full object-cover"
-        alt="scene"
-      />
+      <img src={page.bg} className="w-full h-full object-cover" alt="scene" />
 
       {/* Character */}
       {page.type === "story" && (
@@ -161,9 +158,10 @@ const RiverMiniGames = () => {
 
       {/* QUESTION MODE */}
       {page.type === "question" && !answerResult && (
-        <div className="absolute top-[50%] left-1/2 -translate-x-1/2 z-20 
-        w-[95%] space-y-4 bg-white/30 backdrop-blur-md py-6 rounded-xl">
-
+        <div
+          className="absolute top-[50%] left-1/2 -translate-x-1/2 z-20 
+        w-[95%] space-y-4 bg-white/30 backdrop-blur-md py-6 rounded-xl"
+        >
           <div className="text-black text-lg text-center font-bold px-4">
             {page.question}
           </div>
@@ -171,7 +169,7 @@ const RiverMiniGames = () => {
           <input
             type="text"
             value={userAnswer}
-            onChange={e => setUserAnswer(e.target.value)}
+            onChange={(e) => setUserAnswer(e.target.value)}
             placeholder="Type your answer..."
             className="w-[90%] mx-auto block p-3 rounded-lg 
             text-center text-md font-semibold border border-gray-300"

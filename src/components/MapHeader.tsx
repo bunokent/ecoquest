@@ -5,8 +5,8 @@ import Dog from "../assets/start/dog.svg";
 import Elephant from "../assets/start/elephant.svg";
 
 const MapHeader = () => {
-  const character = "crocodile";
-  const name = "gabriel cabije";
+  const character = localStorage.getItem("character");
+  const name = localStorage.getItem("name");
   const animals = {
     deer: Deer,
     crocodile: Croco,

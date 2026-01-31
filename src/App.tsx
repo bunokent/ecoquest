@@ -12,6 +12,7 @@ import Beach from "./pages/Beach";
 import BeachMiniGames from "./pages/BeachMiniGames";
 import School from "./pages/School";
 import SchoolMiniGames from "./pages/SchoolMiniGames";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   const router = createBrowserRouter([
@@ -21,51 +22,101 @@ function App() {
     },
     {
       path: "/start",
-      element: <Start />,
+      element: <ProtectedRoute element={<Start />} requireAuth={false} />,
     },
     {
       path: "/map",
-      element: <Map />,
+      element: <ProtectedRoute element={<Map />} requireAuth={true} />,
     },
     {
       path: "/forest",
-      element: <Forest />,
+      element: <ProtectedRoute element={<Forest />} requireAuth={true} />,
     },
     {
       path: "/forest/mini-games",
-      element: <ForestMiniGames />,
+      element: (
+        <ProtectedRoute element={<ForestMiniGames />} requireAuth={true} />
+      ),
     },
     {
       path: "/river",
-      element: <River />,
+      element: (
+        <ProtectedRoute
+          element={<River />}
+          requireAuth={true}
+          requiredProgress={2}
+        />
+      ),
     },
     {
       path: "/river/mini-games",
-      element: <RiverMiniGames />,
+      element: (
+        <ProtectedRoute
+          element={<RiverMiniGames />}
+          requireAuth={true}
+          requiredProgress={2}
+        />
+      ),
     },
     {
       path: "/city",
-      element: <City />,
+      element: (
+        <ProtectedRoute
+          element={<City />}
+          requireAuth={true}
+          requiredProgress={3}
+        />
+      ),
     },
     {
       path: "/city/mini-games",
-      element: <CityMiniGames />,
+      element: (
+        <ProtectedRoute
+          element={<CityMiniGames />}
+          requireAuth={true}
+          requiredProgress={3}
+        />
+      ),
     },
     {
       path: "/beach",
-      element: <Beach />,
+      element: (
+        <ProtectedRoute
+          element={<Beach />}
+          requireAuth={true}
+          requiredProgress={5}
+        />
+      ),
     },
     {
       path: "/beach/mini-games",
-      element: <BeachMiniGames />,
+      element: (
+        <ProtectedRoute
+          element={<BeachMiniGames />}
+          requireAuth={true}
+          requiredProgress={5}
+        />
+      ),
     },
     {
       path: "/school",
-      element: <School />,
+      element: (
+        <ProtectedRoute
+          element={<School />}
+          requireAuth={true}
+          requiredProgress={4}
+        />
+      ),
     },
     {
       path: "/school/mini-games",
-      element: <SchoolMiniGames />,
+      element: (
+        <ProtectedRoute
+          element={<SchoolMiniGames />}
+          requireAuth={true}
+          requiredProgress={4}
+        />
+      ),
     },
   ]);
   return <RouterProvider router={router} />;

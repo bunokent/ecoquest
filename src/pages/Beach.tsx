@@ -63,9 +63,9 @@ const pages: Page[] = [
     options: [
       "Observe the fish without touching them.",
       "Splash water to scare the fish .",
-      "Catch the fish."
+      "Catch the fish.",
     ],
-    correct: 0
+    correct: 0,
   },
   { bg: FF1, char: C3, type: "funfact" },
   { bg: FF2, char: C3, type: "funfact" },
@@ -78,9 +78,9 @@ const pages: Page[] = [
     options: [
       "Leave the plastic where it is.",
       "Throw more trash into the water .",
-      "Collect the plastic and place it in recycling bins."
+      "Collect the plastic and place it in recycling bins.",
     ],
-    correct: 2
+    correct: 2,
   },
   { bg: FF3, char: C7, type: "funfact" },
   {
@@ -92,16 +92,16 @@ const pages: Page[] = [
     options: [
       "Bury the trash in the sand..",
       "Collect all trash and bring it to proper trash cans..",
-      "Push it into the water."
+      "Push it into the water.",
     ],
-    correct: 1
+    correct: 1,
   },
-  { bg: FF4, char: C7, type: "funfact" }
+  { bg: FF4, char: C7, type: "funfact" },
 ];
 
 // ---------- COMPONENT ----------
 const Beach = () => {
-  const [currentLives, setCurrentLives] = useState<number>(2);
+  const [currentLives, setCurrentLives] = useState<number>(3);
   const [pageIndex, setPageIndex] = useState<number>(0);
   const [selected, setSelected] = useState<number | null>(null);
   const [answerResult, setAnswerResult] = useState<AnswerResult>(null);
@@ -112,11 +112,11 @@ const Beach = () => {
 
   const handleNext = () => {
     if (pageIndex < pages.length - 1) {
-      setPageIndex(p => p + 1);
+      setPageIndex((p) => p + 1);
     } else {
-    // Redirect to /river/mini-games
-    navigate("/beach/mini-games");
-  }
+      // Redirect to /river/mini-games
+      navigate("/beach/mini-games");
+    }
   };
 
   const handleSubmit = () => {
@@ -125,7 +125,7 @@ const Beach = () => {
         setAnswerResult("correct");
       } else {
         setAnswerResult("wrong");
-        setCurrentLives(l => l - 1);
+        setCurrentLives((l) => l - 1);
       }
     }
   };
@@ -133,7 +133,7 @@ const Beach = () => {
   const handleResultNext = () => {
     setAnswerResult(null);
     setSelected(null);
-    setPageIndex(p => p + 1);
+    setPageIndex((p) => p + 1);
   };
 
   return (
@@ -146,11 +146,7 @@ const Beach = () => {
       {currentLives <= 0 && <NoHeart zone="beach" />}
 
       {/* Background */}
-      <img
-        src={page.bg}
-        className="w-full h-full object-cover"
-        alt="scene"
-      />
+      <img src={page.bg} className="w-full h-full object-cover" alt="scene" />
 
       {/* Character */}
       {page.type === "story" && (
@@ -160,7 +156,7 @@ const Beach = () => {
           alt="character"
         />
       )}
-      
+
       {/* Character */}
       {page.type === "funfact" && (
         <img

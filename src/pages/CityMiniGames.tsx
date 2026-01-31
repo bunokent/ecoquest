@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ZoneHeader from "../components/ZoneHeader";
 import NoHeart from "../components/NoHeart";
 import MatchingGame from "../components/MatchingGame";
+import BadgeReward from "../components/BadgeReward";
 import { useSlideTransition } from "../hooks/useSlideTransition";
 
 import Background from "../assets/city/background4.svg";
@@ -12,9 +13,12 @@ import PlayBtn from "../assets/forest/playbtn.svg";
 import MatchType from "../assets/city/matchtype.svg";
 
 // Result assets
+import CongratsBg from "../assets/city/congratsbg.svg";
 import Congrats from "../assets/congratsbanner.svg";
-import CongratsConvo from "../assets/correct.svg";
+import CongratsConvo1 from "../assets/city/congratsconvo1.svg";
+import CongratsConvo2 from "../assets/city/congratsconvo2.svg";
 import HappyNpc from "../assets/city/happynpc.svg";
+import CityBadge from "../assets/badges/citybadge.svg";
 
 const CityMiniGames = () => {
   const [currentLives, setCurrentLives] = useState<number>(3);
@@ -50,6 +54,18 @@ const CityMiniGames = () => {
     });
   };
 
+  useEffect(() => {
+    if (currentPage === 3) {
+      const currentProgress = parseInt(
+        localStorage.getItem("progress") || "1",
+        10,
+      );
+      if (currentProgress === 3) {
+        localStorage.setItem("progress", "4");
+      }
+    }
+  }, [currentPage]);
+
   // Render Correct Answer
   const renderCorrectAnswer = () => (
     <div className={isSliding ? "animate-slide-out" : ""}>
@@ -59,7 +75,27 @@ const CityMiniGames = () => {
         className="w-full relative bottom-15"
       />
       <img
-        src={CongratsConvo}
+        src={CongratsConvo1}
+        aria-hidden={true}
+        className="relative bottom-55"
+      />
+      <img src={HappyNpc} aria-hidden={true} className="relative bottom-75" />
+      <button className="fixed bottom-5 right-10" onClick={handleContinue}>
+        <img src={PlayBtn} alt="Play" />
+      </button>
+    </div>
+  );
+
+  // Render Final Congrats
+  const renderFinalCongrats = () => (
+    <div className={isSliding ? "animate-slide-out" : ""}>
+      <img
+        src={Congrats}
+        aria-hidden={true}
+        className="w-full relative bottom-15"
+      />
+      <img
+        src={CongratsConvo2}
         aria-hidden={true}
         className="relative bottom-55"
       />
@@ -75,7 +111,9 @@ const CityMiniGames = () => {
       <div>
         <div className="-z-10 fixed inset-0 w-screen h-screen">
           <img
-            src={Background}
+            src={
+              currentPage === 3 || currentPage === 4 ? CongratsBg : Background
+            }
             aria-hidden={true}
             className="object-cover w-full"
           />
@@ -121,6 +159,16 @@ const CityMiniGames = () => {
         </>
       )}
       {currentPage === 3 && renderCorrectAnswer()}
+      {currentPage === 4 && renderFinalCongrats()}
+      {currentPage === 5 && (
+        <BadgeReward
+          background={CongratsBg}
+          badge={CityBadge}
+          nextZone="school"
+          zoneName="City"
+          isSliding={isSliding}
+        />
+      )}
 
       {currentPage === 1 && (
         <button className="fixed bottom-5 right-10">

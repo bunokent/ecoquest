@@ -9,6 +9,7 @@ import Background1 from "../assets/city/background1.svg";
 import Background2 from "../assets/city/background2.svg";
 import Background3 from "../assets/city/background3.svg";
 import Background4 from "../assets/city/background4.svg";
+import CorrectBg from "../assets/noheart/city-bg.svg";
 
 // Intro assets
 import CityBanner from "../assets/city/citybanner.svg";
@@ -58,7 +59,9 @@ const City = () => {
 
   let currentBackground = Background1;
 
-  if (currentPage > 2 && currentPage < 5) {
+  if (showResult && isCorrect) {
+    currentBackground = CorrectBg;
+  } else if (currentPage > 2 && currentPage < 5) {
     currentBackground = Background2;
   } else if (currentPage > 4 && currentPage < 7) {
     currentBackground = Background3;
@@ -141,7 +144,11 @@ const City = () => {
         aria-hidden={true}
         className="relative bottom-55"
       />
-      <img src={HappyNpc} aria-hidden={true} className="relative bottom-75" />
+      <img
+        src={HappyNpc}
+        aria-hidden={true}
+        className="relative bottom-75 npc-float"
+      />
       <button className="fixed bottom-5 right-10" onClick={handleContinue}>
         <img src={PlayBtn} alt="Play" />
       </button>
@@ -153,7 +160,11 @@ const City = () => {
     <div className={isSliding ? "animate-slide-out" : ""}>
       <img src={WrongBanner} aria-hidden={true} className="w-full relative " />
       <img src={WrongAns} aria-hidden={true} className="relative bottom-20" />
-      <img src={CryNpc} aria-hidden={true} className="relative bottom-40" />
+      <img
+        src={CryNpc}
+        aria-hidden={true}
+        className="relative bottom-40 npc-float"
+      />
       <button className="fixed bottom-5 right-10" onClick={handleWrongContinue}>
         <img src={PlayBtn} alt="Play" />
       </button>

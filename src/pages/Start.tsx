@@ -46,7 +46,10 @@ const Start = () => {
                 key={animal.name}
                 src={animal.src}
                 alt={animal.name}
-                onClick={() => setCharacter(animal.name)}
+                onClick={() => {
+                  setCharacter(animal.name);
+                  localStorage.setItem("character", animal.name);
+                }}
                 className={`cursor-pointer transition-all ${
                   character === animal.name
                     ? "drop-shadow-lg filter brightness-110 rounded-md scale-110"
@@ -57,8 +60,13 @@ const Start = () => {
           </div>
           <div className="flex items-center justify-center mt-5">
             <button
-              className="bg-orange-300 p-2 px-10 rounded-md text-white font-bold uppercase hover:bg-orange-400 transition-colors"
-              onClick={() => setNext(true)}
+              className={`p-3 px-12 rounded-lg font-bold uppercase shadow-lg transition-all duration-200 transform ${
+                character
+                  ? "bg-gradient-to-b from-orange-400 to-orange-500 text-white hover:shadow-2xl hover:from-orange-500 hover:to-orange-600 hover:scale-105 active:scale-95 cursor-pointer"
+                  : "bg-gray-400 text-gray-200 cursor-not-allowed opacity-60"
+              }`}
+              onClick={() => character && setNext(true)}
+              disabled={!character}
             >
               Next
             </button>
@@ -77,16 +85,21 @@ const Start = () => {
               placeholder="Enter your name"
             />
           </div>
-          <div className="flex gap-2 items-center justify-center mt-10">
+          <div className="flex gap-4 items-center justify-center mt-10">
             <button
-              className="bg-orange-300 p-2 px-10 rounded-md text-white font-bold uppercase hover:bg-orange-400 transition-colors"
+              className="bg-gradient-to-b from-gray-400 to-gray-500 p-3 px-12 rounded-lg text-white font-bold uppercase shadow-lg hover:shadow-xl hover:from-gray-500 hover:to-gray-600 transition-all duration-200 transform hover:scale-105 active:scale-95"
               onClick={() => setNext(false)}
             >
               Back
             </button>
             <Link
               to={name.trim() === "" ? "" : "/map"}
-              className="bg-orange-300 p-2 px-10 rounded-md text-white font-bold uppercase hover:bg-orange-400 transition-colors"
+              onClick={() => {
+                if (name.trim() !== "") {
+                  localStorage.setItem("name", name);
+                }
+              }}
+              className="bg-gradient-to-b from-green-400 to-green-500 p-3 px-12 rounded-lg text-white font-bold uppercase shadow-lg hover:shadow-2xl hover:from-green-500 hover:to-green-600 transition-all duration-200 transform hover:scale-105 active:scale-95"
             >
               Play
             </Link>

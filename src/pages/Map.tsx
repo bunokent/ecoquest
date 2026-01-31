@@ -26,7 +26,7 @@ import ViewMap from "../assets/map/viewmapbtn.svg";
 
 const Map = () => {
   const [play, setPlay] = useState<boolean>(false);
-  const progress = 5;
+  const progress = parseInt(localStorage.getItem("progress") ?? "1", 10);
 
   const maps = {
     1: Map1,
@@ -85,7 +85,6 @@ const Map = () => {
     5: Zone5Lock,
   };
 
-
   return (
     <div className="relative w-screen min-h-screen ">
       <div className="fixed inset-0 -z-10">
@@ -122,8 +121,8 @@ const Map = () => {
                 {progress >= 5
                   ? "🌟 All zones cleared! The island is fully restored!"
                   : progress > 1
-                  ? "Great job! Keep restoring the island!"
-                  : "Welcome to EcoQuest World! Help me restore the island."}
+                    ? "Great job! Keep restoring the island!"
+                    : "Welcome to EcoQuest World! Help me restore the island."}
               </h2>
             </div>
             <div className="mt-2 grid grid-cols-2 gap-4 place-items-center">
@@ -154,11 +153,7 @@ const Map = () => {
                       isLast ? "col-span-2 flex justify-center" : ""
                     }`}
                   >
-                    <img
-                      src={btnImg}
-                      alt={zone.name}
-                      className="w-32 h-auto"
-                    />
+                    <img src={btnImg} alt={zone.name} className="w-32 h-auto" />
                   </Link>
                 );
               })}

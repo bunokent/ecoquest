@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ZoneHeader from "../components/ZoneHeader";
 import NoHeart from "../components/NoHeart";
+import BadgeReward from "../components/BadgeReward";
 import { useSlideTransition } from "../hooks/useSlideTransition";
 
-import Background from "../assets/forest/background3.svg";
+import Background from "../assets/forest/minigamesbg.svg";
 import MiniGame from "../assets/forest/minigamebanner.svg";
 import MiniGameConvo from "../assets/forest/minigameconvo.svg";
 import MinigameNpc from "../assets/forest/minigamenpc.svg";
@@ -12,6 +13,7 @@ import SpellBanner from "../assets/forest/spellbanner.svg";
 import CongratsBanner from "../assets/forest/congratsminigame.svg";
 import CongratsConvo1 from "../assets/forest/minigameconvo1.svg";
 import CongratsConvo2 from "../assets/forest/minigameconvo2.svg";
+import ForestBadge from "../assets/badges/forestbadge.svg";
 
 // Result assets
 import Congrats from "../assets/congratsbanner.svg";
@@ -31,15 +33,16 @@ const ForestMiniGames = () => {
 
   const questions = {
     1: {
-      question: "This means protecting the forest.",
+      question: "This means protecting the forest. \n (CONERSAVIOTN)",
       answer: "Conservation",
     },
     2: {
-      question: "Plants make food and oxygen through this process",
+      question:
+        "Plants make food and oxygen through this process \n POHTOSNYTHISES",
       answer: "photosynthesis",
     },
     3: {
-      question: "This helps plants make their own food.",
+      question: "This helps plants make their own food. \n UNS",
       answer: "sun",
     },
   };
@@ -70,6 +73,19 @@ const ForestMiniGames = () => {
     });
   };
 
+  // Increment progress when reaching congratulations page
+  useEffect(() => {
+    if (currentPage === 5) {
+      const currentProgress = parseInt(
+        localStorage.getItem("progress") || "1",
+        10,
+      );
+      if (currentProgress === 1) {
+        localStorage.setItem("progress", "2");
+      }
+    }
+  }, [currentPage]);
+
   // Render Correct Answer
   const renderCorrectAnswer = () => (
     <div className={isSliding ? "animate-slide-out" : ""}>
@@ -96,10 +112,7 @@ const ForestMiniGames = () => {
       <img src={WrongBanner} aria-hidden={true} className="w-full relative " />
       <img src={WrongAns} aria-hidden={true} className="relative bottom-20" />
       <img src={CryNpc} aria-hidden={true} className="relative bottom-40" />
-      <button
-        className="fixed bottom-5 right-10"
-        onClick={handleWrongContinue}
-      >
+      <button className="fixed bottom-5 right-10" onClick={handleWrongContinue}>
         <img src={PlayBtn} alt="Play" />
       </button>
     </div>
@@ -305,6 +318,15 @@ const ForestMiniGames = () => {
             />
           </button>
         </>
+      )}
+      {currentPage === 7 && (
+        <BadgeReward
+          background={Background}
+          badge={ForestBadge}
+          nextZone="river"
+          zoneName="Forest"
+          isSliding={isSliding}
+        />
       )}
     </div>
   );

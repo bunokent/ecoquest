@@ -61,9 +61,9 @@ const pages: Page[] = [
     options: [
       "Properly disposing of waste and recycling plastics.",
       "Throwing more waste into the river.",
-      "Washing garbage into the river during rain."
+      "Washing garbage into the river during rain.",
     ],
-    correct: 0
+    correct: 0,
   },
   { bg: FF1, char: C3, type: "funfact" },
   {
@@ -75,9 +75,9 @@ const pages: Page[] = [
     options: [
       "For throwing waste.",
       "For decoration.",
-      "For drinking, cleaning, and living things."
+      "For drinking, cleaning, and living things.",
     ],
-    correct: 2
+    correct: 2,
   },
   { bg: FF2, char: C6, type: "funfact" },
   {
@@ -89,16 +89,16 @@ const pages: Page[] = [
     options: [
       "Using reusable bags and bottles.",
       "Throwing plastic into the sea.",
-      "Burning plastic near the shore."
+      "Burning plastic near the shore.",
     ],
-    correct: 0
+    correct: 0,
   },
-  { bg: FF3, char: C8, type: "funfact" }
+  { bg: FF3, char: C8, type: "funfact" },
 ];
 
 // ---------- COMPONENT ----------
 const River = () => {
-  const [currentLives, setCurrentLives] = useState<number>(2);
+  const [currentLives, setCurrentLives] = useState<number>(3);
   const [pageIndex, setPageIndex] = useState<number>(0);
   const [selected, setSelected] = useState<number | null>(null);
   const [answerResult, setAnswerResult] = useState<AnswerResult>(null);
@@ -109,11 +109,11 @@ const River = () => {
 
   const handleNext = () => {
     if (pageIndex < pages.length - 1) {
-      setPageIndex(p => p + 1);
+      setPageIndex((p) => p + 1);
     } else {
-    // Redirect to /river/mini-games
-    navigate("/river/mini-games");
-  }
+      // Redirect to /river/mini-games
+      navigate("/river/mini-games");
+    }
   };
 
   const handleSubmit = () => {
@@ -122,7 +122,7 @@ const River = () => {
         setAnswerResult("correct");
       } else {
         setAnswerResult("wrong");
-        setCurrentLives(l => l - 1);
+        setCurrentLives((l) => l - 1);
       }
     }
   };
@@ -130,7 +130,7 @@ const River = () => {
   const handleResultNext = () => {
     setAnswerResult(null);
     setSelected(null);
-    setPageIndex(p => p + 1);
+    setPageIndex((p) => p + 1);
   };
 
   return (
@@ -143,11 +143,7 @@ const River = () => {
       {currentLives <= 0 && <NoHeart zone="river" />}
 
       {/* Background */}
-      <img
-        src={page.bg}
-        className="w-full h-full object-cover"
-        alt="scene"
-      />
+      <img src={page.bg} className="w-full h-full object-cover" alt="scene" />
 
       {/* Character */}
       {page.type === "story" && (
@@ -157,7 +153,7 @@ const River = () => {
           alt="character"
         />
       )}
-      
+
       {/* Character */}
       {page.type === "funfact" && (
         <img
