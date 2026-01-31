@@ -1,21 +1,21 @@
 import { useState } from "react";
 
 // ---------- ASSETS ----------
-import Storyline from "../assets/river-mg/01.svg";
+import Storyline from "../assets/beach-mg/01.svg";
 import Congrats01 from "../assets/river-mg/03.svg";
 import Congrats02 from "../assets/river-mg/04.svg";
-import MiniGBG from "../assets/river-mg/02.svg";
+import MiniGBG from "../assets/beach-mg/02.svg";
 
-import C1 from "../assets/river-mg/c1.svg";
+import C1 from "../assets/beach/c2.svg";
 
 import NextButton from "../assets/river/nextbtn.svg";
 import SubmitBtn from "../assets/river-mg/submitbtn.svg";
 import ReturnBtn from "../assets/river-mg/returnbtn.svg";
 import NextZoneBtn from "../assets/river-mg/nextznbtn.svg";
-import CheckAns from "../assets/river/check.svg";
-import WrongAns from "../assets/river/wrong.svg";
-import CheckChar from "../assets/river/check-char.svg";
-import WrongChar from "../assets/river/wrong-char.svg";
+import CheckAns from "../assets/beach/check.svg";
+import WrongAns from "../assets/beach/wrong.svg";
+import CheckChar from "../assets/beach/c2.svg";
+import WrongChar from "../assets/beach/wrong-char.svg";
 
 import ZoneHeader from "../components/ZoneHeader";
 
@@ -48,24 +48,24 @@ const pages: Page[] = [
     bg: MiniGBG,
     char: null,
     type: "question",
-    question: "Throwing trash into the river causes________",
-    answer: "water pollution"
+    question: "I am a group of plants with long roots that grow near the beach. I give fish a safe place to hide and grow.",
+    answer: "mangroves"
   },
 
   {
     bg: MiniGBG,
     char: null,
     type: "question",
-    question: "Plastic waste blocks sunlight and __________ needed by fish.",
-    answer: "oxygen"
+    question: "I look pretty on the sand, but I am not just decoration. Crabs and other animals use me as home.",
+    answer: "shells"
   },
 
   {
     bg: MiniGBG,
     char: null,
     type: "question",
-    question: "Plastic waste can stay in rivers and oceans for __________ of years.",
-    answer: "hundreds"
+    question: "I start on land as bottles, wrappers, or straws. When left behind, I float into the sea and harm marine animals.",
+    answer: "trash"
   },
 
   { bg: Congrats01, char: C1, type: "story" },
@@ -73,7 +73,7 @@ const pages: Page[] = [
 ];
 
 // ---------- COMPONENT ----------
-const RiverMiniGames = () => {
+const BeachMiniGames = () => {
   const [currentLives, setCurrentLives] = useState<number>(2);
   const [pageIndex, setPageIndex] = useState<number>(0);
   const [userAnswer, setUserAnswer] = useState<string>("");
@@ -120,7 +120,7 @@ const RiverMiniGames = () => {
       </div>
 
       {/* overlay */}
-      {currentLives <= 0 && <NoHeart zone="river" />}
+      {currentLives <= 0 && <NoHeart zone="beach" />}
 
       {/* Background */}
       <img
@@ -215,4 +215,4 @@ const RiverMiniGames = () => {
   );
 };
 
-export default RiverMiniGames;
+export default BeachMiniGames;
