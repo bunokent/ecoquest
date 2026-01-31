@@ -28,7 +28,9 @@ function App() {
       as: "url",
       eager: true,
     }) as Record<string, string>;
-    return Object.values(assets);
+    const urls = Object.values(assets);
+    const rest = urls.filter((url) => url !== LoadingBg);
+    return [LoadingBg, ...rest];
   }, []);
 
   useEffect(() => {
