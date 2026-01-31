@@ -18,6 +18,21 @@ import BackgroundMusic from "./assets/musics/bgmusic.mp3";
 import ButtonClickMusic from "./assets/musics/buttonclick.mp3";
 
 function App() {
+  const bgAudioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    const startMusic = () => {
+      if (bgAudioRef.current) {
+        bgAudioRef.current.volume = 0.5;
+        void bgAudioRef.current.play();
+        document.removeEventListener("click", startMusic);
+      }
+    };
+
+    document.addEventListener("click", startMusic);
+    return () => document.removeEventListener("click", startMusic);
+  }, []);
+
   const clickAudioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
@@ -141,7 +156,7 @@ function App() {
   ]);
   return (
     <>
-      <audio src={BackgroundMusic} autoPlay loop />
+      <audio ref={bgAudioRef} src={BackgroundMusic} loop />
       <audio ref={clickAudioRef} src={ButtonClickMusic} preload="auto" />
       <RouterProvider router={router} />
     </>

@@ -15,7 +15,7 @@ import WrongAns from "../assets/river/wrong.svg";
 import CheckChar from "../assets/river/check-char.svg";
 import WrongChar from "../assets/river/wrong-char.svg";
 
-import Background from "../assets/badges/riverbadge.png";
+import Background from "../assets/river-mg/riverbadgebg.svg";
 import RiverBadge from "../assets/map/zone2btn.png";
 
 import ZoneHeader from "../components/ZoneHeader";
@@ -154,8 +154,8 @@ const RiverMiniGames = () => {
       {/* STORY MODE */}
       {page.type === "story" && (
         <div
-          className={`absolute right-10 z-20 flex space-x-4 ${
-            showReward ? "bottom-0" : "bottom-10"
+          className={`absolute z-20 flex space-x-4 ${
+            showReward ? "inset-0 items-center justify-center" : "bottom-10 right-10"
           }`}
         >
           {!showReward && (

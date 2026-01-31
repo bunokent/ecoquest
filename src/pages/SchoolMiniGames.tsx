@@ -128,6 +128,18 @@ const SchoolMiniGames = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items, currentLives]);
 
+  useEffect(() => {
+    if (showBadge) {
+      const currentProgress = parseInt(
+        localStorage.getItem("progress") || "1",
+        10,
+      );
+      if (currentProgress === 4) {
+        localStorage.setItem("progress", "5");
+      }
+    }
+  }, [showBadge]);
+
   const handleSelectItem = (id: number) => {
     if (feedback) return;
     const it = items.find((i) => i.id === id);
