@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home";
 import Start from "./pages/Start";
@@ -13,8 +14,27 @@ import BeachMiniGames from "./pages/BeachMiniGames";
 import School from "./pages/School";
 import SchoolMiniGames from "./pages/SchoolMiniGames";
 import ProtectedRoute from "./components/ProtectedRoute";
+import BackgroundMusic from "./assets/musics/bgmusic.mp3";
+import ButtonClickMusic from "./assets/musics/buttonclick.mp3";
 
 function App() {
+  const clickAudioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    const handleDocumentClick = (event: MouseEvent) => {
+      const target = event.target as HTMLElement | null;
+      const isButton = target?.closest("button, a, [role='button']");
+
+      if (isButton && clickAudioRef.current) {
+        clickAudioRef.current.currentTime = 0;
+        void clickAudioRef.current.play();
+      }
+    };
+
+    document.addEventListener("click", handleDocumentClick);
+    return () => document.removeEventListener("click", handleDocumentClick);
+  }, []);
+
   const router = createBrowserRouter([
     {
       path: "/",
@@ -119,7 +139,13 @@ function App() {
       ),
     },
   ]);
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <audio src={BackgroundMusic} autoPlay loop />
+      <audio ref={clickAudioRef} src={ButtonClickMusic} preload="auto" />
+      <RouterProvider router={router} />
+    </>
+  );
 }
 
 export default App;
