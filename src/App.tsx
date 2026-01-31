@@ -48,6 +48,8 @@ function App() {
     {
       path: "/city/mini-games",
       element: <CityMiniGames />,
+    },
+    {
       path: "/beach",
       element: <Beach />,
     },
