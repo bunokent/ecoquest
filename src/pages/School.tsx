@@ -19,6 +19,7 @@ import C1 from "../assets/school/c1.svg";
 import C2 from "../assets/school/c2.svg";
 import C3 from "../assets/school/c3.svg";
 import ZoneHeader from "../components/ZoneHeader";
+import NoHeart from "../components/NoHeart";
 import { useNavigate } from "react-router-dom";
 
 // ---------- TYPES ----------
@@ -128,6 +129,9 @@ const School = () => {
       <div className="fixed top-0 left-0 w-full z-100">
         <ZoneHeader currentLives={currentLives} />
       </div>
+
+      {/* overlay */}
+      {currentLives <= 0 && <NoHeart zone="school" />}
 
       {/* Background */}
       <img src={page.bg} className="w-full h-full object-cover" alt="scene" />
