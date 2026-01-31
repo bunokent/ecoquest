@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import ZoneHeader from "../components/ZoneHeader";
 import NoHeart from "../components/NoHeart";
+import BadgeReward from "../components/BadgeReward";
 import { useNavigate } from "react-router-dom";
 
 import Bg from "../assets/school-mg/02.svg";
@@ -17,9 +18,12 @@ import Battery from "../assets/school-mg/battery.svg";
 import Glass from "../assets/school-mg/glass.svg";
 
 import C1 from "../assets/school/c2.svg";
+import bg from "../assets/school-mg/bg.svg";
+import badge from "../assets/school-mg/badge.svg";
 import Congrats01 from "../assets/school-mg/03.svg";
 import Congrats02 from "../assets/school-mg/04.svg";
 import NextButton from "../assets/river/nextbtn.svg";
+import { useSlideTransition } from "../hooks/useSlideTransition";
 
 type BinType = "recycle" | "compost" | "trash" | "hazardous";
 
@@ -67,9 +71,11 @@ const SchoolMiniGames = () => {
   const [selectedItemId, setSelectedItemId] = useState<number | null>(null);
   const [feedback, setFeedback] = useState<null | "correct" | "wrong">(null);
   const [score, setScore] = useState<number>(0);
+  const { isSliding, triggerSlide } = useSlideTransition();
 
   const [showResult, setShowResult] = useState(false);
   const [resultIndex, setResultIndex] = useState(0);
+  const [showBadge, setShowBadge] = useState(false);
 
   const navigate = useNavigate();
 
@@ -84,17 +90,15 @@ const SchoolMiniGames = () => {
   }
 
   function randomPosition(existing: ScatteredItem[]) {
-    // try to avoid heavy overlaps by checking distance a few times
     for (let attempt = 0; attempt < 20; attempt++) {
       const x =
-        SPAWN_AREA.xMin + Math.random() * (SPAWN_AREA.xMax - SPAWN_AREA.xMin); // inside spawn box horizontally
-      const y = SPAWN_AREA.yTop + Math.random() * SPAWN_AREA.height; // inside spawn box vertically
+        SPAWN_AREA.xMin + Math.random() * (SPAWN_AREA.xMax - SPAWN_AREA.xMin);
+      const y = SPAWN_AREA.yTop + Math.random() * SPAWN_AREA.height;
       const ok = existing.every(
         (it) => Math.hypot(it.x - x, it.y - y) > 12, // percent distance
       );
       if (ok) return { x, y };
     }
-    // fallback
     return {
       x: SPAWN_AREA.xMin + Math.random() * (SPAWN_AREA.xMax - SPAWN_AREA.xMin),
       y: SPAWN_AREA.yTop + Math.random() * SPAWN_AREA.height,
@@ -102,7 +106,6 @@ const SchoolMiniGames = () => {
   }
 
   useEffect(() => {
-    // initialize scattered items once
     const pool = shuffle(ITEM_POOL).slice(0, roundsTotal);
     const scattered: ScatteredItem[] = [];
     pool.forEach((p, i) => {
@@ -121,14 +124,12 @@ const SchoolMiniGames = () => {
   }, []);
 
   useEffect(() => {
-    // when all items are collected, show result pages (stay on same URL)
     const remaining = items.filter((i) => !i.collected).length;
     if (items.length > 0 && remaining === 0) {
       setTimeout(() => setShowResult(true), 400);
     }
-    // optionally handle lives depletion (keeps same behavior as before)
     if (currentLives <= 0) {
-      // show NoHeart overlay; do not auto-navigate so player can see the overlay
+      // keep showing NoHeart overlay
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items, currentLives]);
@@ -161,7 +162,6 @@ const SchoolMiniGames = () => {
       setTimeout(() => {
         setFeedback(null);
         setSelectedItemId(null);
-        // mark collected to avoid infinite retry loops
         setItems((prev) =>
           prev.map((p) => (p.id === it.id ? { ...p, collected: true } : p)),
         );
@@ -173,9 +173,23 @@ const SchoolMiniGames = () => {
     if (resultIndex < RESULT_PAGES.length - 1) {
       setResultIndex((i) => i + 1);
     } else {
-      navigate("/school");
+      // after last result page show BadgeReward (stays on same route)
+      setShowBadge(true);
     }
   };
+
+  // show BadgeReward after results
+  if (showBadge) {
+    return (
+      <BadgeReward
+        background={bg}
+        badge={badge}
+        nextZone="beach"
+        zoneName="School"
+        isSliding={isSliding}
+      />
+    );
+  }
 
   if (showResult) {
     return (
@@ -261,11 +275,16 @@ const SchoolMiniGames = () => {
         )}
       </div>
 
-      {/* Bins */}
+      {/* Shelf behind bins */}
+      <div className="absolute bottom-14 left-0 right-0 flex justify-center z-30 pointer-events-none">
+        <div className="w-[86%] h-24 bg-[#3b2a1f]/85 rounded-2xl shadow-inner border-t-4 border-yellow-200/20 mx-auto" />
+      </div>
+
+      {/* Bins with shared fading background */}
       <div className="absolute bottom-6 left-0 right-0 flex justify-center z-40 px-4 pointer-events-none">
         <div className="w-full max-w-4xl mx-auto px-6 py-3 rounded-xl bg-gradient-to-t from-black/75 via-black/40 to-transparent backdrop-blur-sm flex justify-center gap-6 pointer-events-auto">
           {BIN_ASSETS.map((b) => {
-            const highlight = selectedItemId !== null; // bins light up when an item is selected
+            const highlight = selectedItemId !== null;
             return (
               <button
                 key={b.type}

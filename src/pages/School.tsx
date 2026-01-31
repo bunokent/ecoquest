@@ -7,6 +7,7 @@ import Q2 from "../assets/school/05.svg";
 import FF2 from "../assets/school/06.svg";
 import Q3 from "../assets/school/07.svg";
 import FF3 from "../assets/school/08.svg";
+import miniGamesBG from "../assets/school/09.svg";
 
 import NextButton from "../assets/school/nextbtn.svg";
 import SubmitButton from "../assets/school/submitbtn.svg";
@@ -87,6 +88,7 @@ const pages: Page[] = [
     correct: 0,
   },
   { bg: FF3, char: C3, type: "story" },
+  { bg: miniGamesBG, char: C3, type: "story" },
 ];
 
 // ---------- COMPONENT ----------
