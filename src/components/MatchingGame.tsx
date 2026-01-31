@@ -70,8 +70,28 @@ const MatchingGame = ({
   };
 
   return (
-    <div className="flex items-center w-full justify-center">
+    <div className="flex items-center w-full justify-center relative bottom-20">
       <div className="rounded-lg w-[95%] max-w-2xl bg-transparent text-black p-8 relative bottom-12 transition-all duration-300">
+        {/* Progress */}
+        <div className="mb-6 text-center text-sm font-semibold text-white bg-gray-800/80 py-2 rounded-lg">
+          Matched: {matchedPairs.length} / {Object.keys(columnA).length}
+        </div>
+
+        {/* Feedback */}
+        {feedback && (
+          <div
+            className={`mb-6 p-4 rounded-lg text-center font-semibold transition-all ${
+              feedbackType === "success"
+                ? "bg-green-500/80 text-white border-2 border-green-400"
+                : "bg-red-500/80 text-white border-2 border-red-400"
+            }`}
+          >
+            {feedbackType === "success"
+              ? "Matched! This pair is complete."
+              : "Not a match! Try another pair."}
+          </div>
+        )}
+
         <div className="space-y-8">
           {/* Column A */}
           <div>
@@ -97,7 +117,7 @@ const MatchingGame = ({
                           : isSelected && wrongFlash
                             ? "bg-red-500/60 border-red-400 shadow-[0_0_15px_5px_rgba(239,68,68,0.6)] scale-105"
                             : isSelected
-                              ? "bg-blue-500/60 border-blue-400 shadow-lg scale-105"
+                              ? "bg-amber-700/60 border-amber-600 shadow-lg scale-105"
                               : "bg-white/70 border-transparent hover:bg-white/90 hover:shadow-md"
                     }`}
                   >
@@ -105,7 +125,9 @@ const MatchingGame = ({
                       className={`font-semibold ${
                         isMatched
                           ? "line-through text-gray-500"
-                          : "text-gray-900"
+                          : isSelected
+                            ? "text-white"
+                            : "text-gray-900"
                       }`}
                     >
                       {value}
@@ -156,26 +178,6 @@ const MatchingGame = ({
               })}
             </div>
           </div>
-        </div>
-
-        {/* Feedback */}
-        {feedback && (
-          <div
-            className={`mt-6 p-4 rounded-lg text-center font-semibold transition-all ${
-              feedbackType === "success"
-                ? "bg-green-500/80 text-white border-2 border-green-400"
-                : "bg-red-500/80 text-white border-2 border-red-400"
-            }`}
-          >
-            {feedbackType === "success"
-              ? "Matched! This pair is complete."
-              : "Not a match! Try another pair."}
-          </div>
-        )}
-
-        {/* Progress */}
-        <div className="mt-6 text-center text-sm font-semibold text-white bg-gray-800/80 py-2 rounded-lg">
-          Matched: {matchedPairs.length} / {Object.keys(columnA).length}
         </div>
       </div>
     </div>
