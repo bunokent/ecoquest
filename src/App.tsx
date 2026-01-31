@@ -10,6 +10,8 @@ import City from "./pages/City";
 import CityMiniGames from "./pages/CityMiniGames";
 import Beach from "./pages/Beach";
 import BeachMiniGames from "./pages/BeachMiniGames";
+import School from "./pages/School";
+import SchoolMiniGames from "./pages/SchoolMiniGames";
 
 function App() {
   const router = createBrowserRouter([
@@ -56,6 +58,14 @@ function App() {
     {
       path: "/beach/mini-games",
       element: <BeachMiniGames />,
+    },
+    {
+      path: "/school",
+      element: <School />,
+    },
+    {
+      path: "/school/mini-games",
+      element: <SchoolMiniGames />,
     },
   ]);
   return <RouterProvider router={router} />;
