@@ -184,7 +184,7 @@ const River = () => {
               key={i}
               onClick={() => setSelected(i)}
               className={`
-                p-4 rounded-xl cursor-pointer text-center text-md font-semibold
+                px-4 py-2 rounded-lg cursor-pointer text-md
                 transition-all duration-200 mx-2
                 ${
                   selected === i
