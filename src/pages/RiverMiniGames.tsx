@@ -20,6 +20,7 @@ import WrongChar from "../assets/river/wrong-char.svg";
 import ZoneHeader from "../components/ZoneHeader";
 
 import { useNavigate } from "react-router-dom";
+import NoHeart from "../components/NoHeart";
 
 // ---------- TYPES ----------
 type StoryPage = {
@@ -114,9 +115,12 @@ const RiverMiniGames = () => {
   return (
     <div className="relative w-full h-screen overflow-hidden">
       {/* Header */}
-      <div className="fixed top-0 left-0 w-full z-50">
+      <div className="fixed top-0 left-0 w-full z-100">
         <ZoneHeader currentLives={currentLives} />
       </div>
+
+      {/* overlay */}
+      {currentLives <= 0 && <NoHeart zone="river" />}
 
       {/* Background */}
       <img
@@ -129,8 +133,7 @@ const RiverMiniGames = () => {
       {page.type === "story" && (
         <img
           src={page.char}
-          className="absolute bottom-2 right-8 z-10 
-          animate-[idleFloat_3s_ease-in-out_infinite]"
+          className="absolute bottom-2 right-8 z-10 npc-float"
           alt="character"
         />
       )}
@@ -161,7 +164,7 @@ const RiverMiniGames = () => {
         <div className="absolute top-[50%] left-1/2 -translate-x-1/2 z-20 
         w-[95%] space-y-4 bg-white/30 backdrop-blur-md py-6 rounded-xl">
 
-          <div className="text-black text-sm text-center font-semibold px-4">
+          <div className="text-black text-lg text-center font-bold px-4">
             {page.question}
           </div>
 
@@ -171,7 +174,7 @@ const RiverMiniGames = () => {
             onChange={e => setUserAnswer(e.target.value)}
             placeholder="Type your answer..."
             className="w-[90%] mx-auto block p-3 rounded-lg 
-            text-center text-sm border border-gray-300"
+            text-center text-md font-semibold border border-gray-300"
           />
 
           <div className="flex justify-center mt-4">
@@ -197,7 +200,7 @@ const RiverMiniGames = () => {
 
           <img
             src={answerResult === "correct" ? CheckChar : WrongChar}
-            className="absolute bottom-2 right-8 z-10"
+            className="absolute bottom-2 right-8 z-10 npc-float"
             alt="character"
           />
 

@@ -52,7 +52,6 @@ const ForestMiniGames = () => {
   const handleWrongContinue = () => {
     setShowResult(false);
     setUserAnswer("");
-    setCurrentLives((prev) => Math.max(0, prev - 1));
     setCurrentPage((prev) => prev + 1);
   };
   return (
@@ -97,7 +96,7 @@ const ForestMiniGames = () => {
           />
           <div className="flex items-center w-full justify-center">
             <div className="rounded-lg w-[90%] max-w-md bg-white/90 text-black font-semibold text-center p-6 relative bottom-12 shadow-lg">
-              <p className="text-lg mb-4">{questions[2].question}</p>
+              <p className="text-lg mb-4">{questions[1].question}</p>
               <input
                 type="text"
                 value={userAnswer}
@@ -132,7 +131,7 @@ const ForestMiniGames = () => {
           />
           <div className="flex items-center w-full justify-center">
             <div className="rounded-lg w-[90%] max-w-md bg-white/90 text-black font-semibold text-center p-6 relative bottom-12 shadow-lg">
-              <p className="text-lg mb-4">{questions[1].question}</p>
+              <p className="text-lg mb-4">{questions[2].question}</p>
               <input
                 type="text"
                 value={userAnswer}

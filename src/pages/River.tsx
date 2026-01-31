@@ -21,12 +21,19 @@ import C8 from "../assets/river/c8.svg";
 import ZoneHeader from "../components/ZoneHeader";
 
 import { useNavigate } from "react-router-dom";
+import NoHeart from "../components/NoHeart";
 
 // ---------- TYPES ----------
 type StoryPage = {
   bg: string;
   char: string;
   type: "story";
+};
+
+type FunFactPage = {
+  bg: string;
+  char: string;
+  type: "funfact";
 };
 
 type QuestionPage = {
@@ -38,7 +45,7 @@ type QuestionPage = {
   correct: number;
 };
 
-type Page = StoryPage | QuestionPage;
+type Page = StoryPage | FunFactPage | QuestionPage;
 type AnswerResult = "correct" | "wrong" | null;
 
 // ---------- DATA ----------
@@ -58,7 +65,7 @@ const pages: Page[] = [
     ],
     correct: 0
   },
-  { bg: FF1, char: C3, type: "story" },
+  { bg: FF1, char: C3, type: "funfact" },
   {
     bg: Q2,
     char: null,
@@ -72,7 +79,7 @@ const pages: Page[] = [
     ],
     correct: 2
   },
-  { bg: FF2, char: C6, type: "story" },
+  { bg: FF2, char: C6, type: "funfact" },
   {
     bg: Q3,
     char: null,
@@ -86,7 +93,7 @@ const pages: Page[] = [
     ],
     correct: 0
   },
-  { bg: FF3, char: C8, type: "story" }
+  { bg: FF3, char: C8, type: "funfact" }
 ];
 
 // ---------- COMPONENT ----------
@@ -132,6 +139,9 @@ const River = () => {
         <ZoneHeader currentLives={currentLives} />
       </div>
 
+      {/* overlay */}
+      {currentLives <= 0 && <NoHeart zone="river" />}
+
       {/* Background */}
       <img
         src={page.bg}
@@ -143,14 +153,22 @@ const River = () => {
       {page.type === "story" && (
         <img
           src={page.char}
-          className="absolute bottom-2 right-8 z-10 
-          animate-[idleFloat_3s_ease-in-out_infinite]"
+          className="absolute bottom-2 right-8 z-10 npc-float"
+          alt="character"
+        />
+      )}
+      
+      {/* Character */}
+      {page.type === "funfact" && (
+        <img
+          src={page.char}
+          className="absolute bottom-2 right-8 z-10 npc-think"
           alt="character"
         />
       )}
 
       {/* STORY MODE */}
-      {page.type === "story" && (
+      {(page.type === "story" || page.type === "funfact") && (
         <div className="absolute bottom-10 right-10 z-20">
           <button onClick={handleNext}>
             <img src={NextButton} alt="next" />
@@ -160,8 +178,8 @@ const River = () => {
 
       {/* QUESTION MODE */}
       {page.type === "question" && !answerResult && (
-        <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-20 w-[95%] space-y-4 bg-white/30 backdrop-blur-md py-6 rounded-xl">
-          <div className="text-black text-sm text-center font-semibold px-4">
+        <div className="absolute bottom-[10%] left-1/2 -translate-x-1/2 z-20 w-[95%] space-y-4 bg-white/30 backdrop-blur-md py-6 rounded-xl">
+          <div className="text-black text-lg text-center font-bold px-4">
             {page.question}
           </div>
 
@@ -170,7 +188,7 @@ const River = () => {
               key={i}
               onClick={() => setSelected(i)}
               className={`
-                p-4 rounded-xl cursor-pointer text-center text-sm
+                p-4 rounded-xl cursor-pointer text-center text-md font-semibold
                 transition-all duration-200 mx-2
                 ${
                   selected === i
@@ -206,7 +224,7 @@ const River = () => {
             />
             <img
               src={answerResult === "correct" ? CheckChar : WrongChar}
-              className="absolute bottom-2 right-8 z-10 "
+              className="absolute bottom-2 right-8 z-10 npc-float"
               alt="character"
             />
             <div className="absolute bottom-10 right-10 z-20">
