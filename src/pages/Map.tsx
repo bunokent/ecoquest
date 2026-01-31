@@ -10,6 +10,20 @@ import { Link } from "react-router-dom";
 import PlayBtn from "../assets/map/playbtn.svg";
 import { useState } from "react";
 
+import Zone1Btn from "../assets/map/zone1btn.svg";
+import Zone2Btn from "../assets/map/zone2btn.svg";
+import Zone3Btn from "../assets/map/zone3btn.svg";
+import Zone4Btn from "../assets/map/zone4btn.svg";
+import Zone5Btn from "../assets/map/zone5btn.svg";
+
+import Zone2Lock from "../assets/map/zone2lock.svg";
+import Zone3Lock from "../assets/map/zone3lock.svg";
+import Zone4Lock from "../assets/map/zone4lock.svg";
+import Zone5Lock from "../assets/map/zone5lock.svg";
+
+import MapChar from "../assets/map/man.svg";
+import ViewMap from "../assets/map/viewmapbtn.svg";
+
 const Map = () => {
   const [play, setPlay] = useState<boolean>(false);
   const progress = 5;
@@ -56,6 +70,22 @@ const Map = () => {
     },
   ];
 
+  const zoneButtons: Record<number, string> = {
+    1: Zone1Btn,
+    2: Zone2Btn,
+    3: Zone3Btn,
+    4: Zone4Btn,
+    5: Zone5Btn,
+  };
+
+  const zoneLocks: Record<number, string> = {
+    2: Zone2Lock,
+    3: Zone3Lock,
+    4: Zone4Lock,
+    5: Zone5Lock,
+  };
+
+
   return (
     <div className="relative w-screen min-h-screen ">
       <div className="fixed inset-0 -z-10">
@@ -84,55 +114,62 @@ const Map = () => {
       </div>
 
       {play && (
-        <div className="fixed inset-0 z-10 bg-black/50 backdrop-blur-sm">
-          <div className="mx-auto mt-20 w-[90%] max-w-xl rounded-2xl bg-white/90 p-6 shadow-xl">
-            <div className="flex items-center justify-between">
-              <h2 className="text-xl font-extrabold text-slate-800">
-                Choose a Zone
+        <div className="fixed inset-0 z-10 bg-transparent backdrop-blur-xs">
+          <div className="mx-auto mt-4 w-[90%] max-w-xl rounded-2xl bg-white/60 p-6 shadow-xl">
+            <div className="flex items-center justify-between mx-auto rounded-full max-w-md">
+              <img src={MapChar} alt="Map Character" className="h-26 w-32" />
+              <h2 className="text-lg font-bold text-slate-800">
+                {progress >= 5
+                  ? "🌟 All zones cleared! The island is fully restored!"
+                  : progress > 1
+                  ? "Great job! Keep restoring the island!"
+                  : "Welcome to EcoQuest World! Help me restore the island."}
               </h2>
-              <button
-                onClick={() => setPlay(false)}
-                className="rounded-md bg-slate-200 px-3 py-1 text-sm font-semibold text-slate-700 hover:bg-slate-300"
-              >
-                Close
-              </button>
             </div>
-            <div className="mt-5 grid gap-3 sm:grid-cols-2">
+            <div className="mt-2 grid grid-cols-2 gap-4 place-items-center">
               {zones.map((zone) => {
                 const locked = zone.id > progress;
-                const baseClasses = `group relative overflow-hidden rounded-xl border border-white/40 bg-gradient-to-r ${zone.color} px-4 py-3 text-white shadow-md transition-all`;
+                const btnImg = zoneButtons[zone.id];
+                const lockImg = zoneLocks[zone.id];
+                const isLast = zone.id === 5;
 
                 return locked ? (
                   <div
-                    key={zone.name}
-                    className={`${baseClasses} cursor-not-allowed opacity-60`}
+                    key={zone.id}
+                    className={`relative opacity-70 cursor-not-allowed ${
+                      isLast ? "col-span-2 flex justify-center" : ""
+                    }`}
                   >
-                    <div className="flex items-center justify-between">
-                      <span className="text-lg font-bold tracking-wide">
-                        {zone.name}
-                      </span>
-                      <span className="text-sm font-semibold">Locked 🔒</span>
-                    </div>
+                    <img
+                      src={lockImg}
+                      alt={`${zone.name} locked`}
+                      className="w-32 h-auto"
+                    />
                   </div>
                 ) : (
                   <Link
-                    key={zone.name}
+                    key={zone.id}
                     to={zone.to}
-                    className={`${baseClasses} hover:-translate-y-0.5 hover:shadow-lg`}
+                    className={`transition-transform hover:scale-105 active:scale-95 ${
+                      isLast ? "col-span-2 flex justify-center" : ""
+                    }`}
                   >
-                    <div className="flex items-center justify-between">
-                      <span className="text-lg font-bold tracking-wide">
-                        {zone.name}
-                      </span>
-                      <span className="text-sm font-semibold opacity-80 group-hover:opacity-100">
-                        Enter →
-                      </span>
-                    </div>
+                    <img
+                      src={btnImg}
+                      alt={zone.name}
+                      className="w-32 h-auto"
+                    />
                   </Link>
                 );
               })}
             </div>
           </div>
+          <button
+            onClick={() => setPlay(false)}
+            className="rounded-md px-3 py-1 text-sm font-semibold text-slate-700 mx-auto w-full mt-6"
+          >
+            <img src={ViewMap} alt="ViewMap" className="mx-auto" />
+          </button>
         </div>
       )}
     </div>
