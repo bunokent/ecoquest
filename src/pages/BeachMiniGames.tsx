@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // ---------- ASSETS ----------
 import Storyline from "../assets/beach-mg/01.svg";
@@ -10,17 +10,19 @@ import C1 from "../assets/beach/c2.svg";
 
 import NextButton from "../assets/river/nextbtn.svg";
 import SubmitBtn from "../assets/river-mg/submitbtn.svg";
-import ReturnBtn from "../assets/river-mg/returnbtn.svg";
-import NextZoneBtn from "../assets/river-mg/nextznbtn.svg";
 import CheckAns from "../assets/beach/check.svg";
 import WrongAns from "../assets/beach/wrong.svg";
 import CheckChar from "../assets/beach/c2.svg";
 import WrongChar from "../assets/beach/wrong-char.svg";
 
+import Background from "../assets/beach-mg/beachbadgebg.svg";
+import RiverBadge from "../assets/map/zone5btn.svg";
+
 import ZoneHeader from "../components/ZoneHeader";
 
-import { useNavigate } from "react-router-dom";
 import NoHeart from "../components/NoHeart";
+import BadgeReward from "../components/BadgeReward";
+import { useSlideTransition } from "../hooks/useSlideTransition";
 
 // ---------- TYPES ----------
 type StoryPage = {
@@ -81,10 +83,16 @@ const BeachMiniGames = () => {
 
   const page = pages[pageIndex];
 
+  const { isSliding, triggerSlide } = useSlideTransition();
+
   // ---------- HANDLERS ----------
+  const [showReward, setShowReward] = useState(false);
+
   const handleNext = () => {
-    if (pageIndex < pages.length - 1) {
-      setPageIndex(p => p + 1);
+    if (isLastPage) {
+      setShowReward(true); // only show reward after click
+    } else {
+      setPageIndex((p) => p + 1);
     }
   };
 
@@ -109,7 +117,18 @@ const BeachMiniGames = () => {
   };
 
   const isLastPage = pageIndex === pages.length - 1;
-  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isLastPage) {
+      const currentProgress = parseInt(
+        localStorage.getItem("progress") || "1",
+        10,
+      );
+      if (currentProgress === 5) {
+        localStorage.setItem("progress", "5");
+      }
+    }
+  }, [isLastPage]);
 
   // ---------- RENDER ----------
   return (
@@ -141,21 +160,23 @@ const BeachMiniGames = () => {
       {/* STORY MODE */}
       {page.type === "story" && (
         <div className="absolute bottom-10 right-10 z-20 flex space-x-4">
-          {!isLastPage && (
+          
+          {!showReward && (
             <button onClick={handleNext}>
               <img src={NextButton} alt="next" />
             </button>
           )}
-          {isLastPage && (
-            <div className="flex flex-col gap-2">
-              <button onClick={() => navigate("/map")}>
-                <img src={ReturnBtn} alt="return" />
-              </button>
-              <button onClick={() => navigate("/city")}>
-                <img src={NextZoneBtn} alt="next zone" />
-              </button>
-            </div>
+
+          {showReward && (
+            <BadgeReward
+              background={Background}
+              badge={RiverBadge}
+              nextZone="city"
+              zoneName="River"
+              isSliding={isSliding}
+            />
           )}
+
         </div>
       )}
 
