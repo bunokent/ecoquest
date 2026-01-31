@@ -107,7 +107,7 @@ const Map = () => {
           className="relative flex items-center justify-center"
           onClick={() => setPlay(true)}
         >
-          <img src={PlayBtn} aria-hidden={true} className="h-16 w-auto" />
+          <img src={PlayBtn} aria-hidden={true} className="h-24 w-auto" />
           <span className="absolute tracking-wide"></span>
         </button>
       </div>

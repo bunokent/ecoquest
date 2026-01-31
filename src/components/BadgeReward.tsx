@@ -15,6 +15,10 @@ const BadgeReward = ({
   zoneName,
   isSliding = false,
 }: BadgeRewardProps) => {
+  const progress = parseInt(localStorage.getItem("progress") || "1", 10);
+
+  const canGoNext = progress < 5; // hide if progress is 5
+
   return (
     <div className={isSliding ? "animate-slide-out" : ""}>
       <div className="-z-10 fixed inset-0 w-screen h-screen">
@@ -52,7 +56,7 @@ const BadgeReward = ({
             Back to Map
           </Link>
 
-          {nextZone && (
+          {nextZone && canGoNext && (
             <Link
               to={`/${nextZone}`}
               className="bg-gradient-to-b from-green-400 to-green-500 p-3 px-6 rounded-lg text-white font-bold text-sm uppercase shadow-lg hover:shadow-2xl hover:from-green-500 hover:to-green-600 transition-all duration-200 transform hover:scale-105 active:scale-95"
